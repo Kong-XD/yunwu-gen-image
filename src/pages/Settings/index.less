@@ -1,19 +1,101 @@
 .settings-page {
+  padding: 32px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
   :global {
+    .ant-card {
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border: none;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .ant-card-head {
+      border-bottom: 1px solid #f0f0f0;
+      padding: 20px 24px;
+    }
+
     .ant-card-head-title {
-      font-weight: 500;
+      font-weight: 600;
+      font-size: 18px;
+      color: #262626;
+    }
+
+    .ant-card-body {
+      padding: 32px 24px;
     }
 
     .ant-divider-horizontal.ant-divider-with-text-left {
       margin: 32px 0 24px;
+      font-weight: 600;
+      font-size: 15px;
+      color: #262626;
       
       &:first-child {
         margin-top: 0;
+      }
+
+      .ant-divider-inner-text {
+        color: #262626;
+      }
+    }
+
+    .ant-form-item-label > label {
+      font-weight: 500;
+      color: #262626;
+    }
+
+    .ant-input,
+    .ant-input-number,
+    .ant-select-selector {
+      border-radius: 8px;
+      border: 1px solid #d9d9d9;
+      transition: all 0.3s ease;
+
+      &:hover,
+      &:focus {
+        border-color: #40a9ff;
+        box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.1);
+      }
+    }
+
+    .ant-input-textarea textarea {
+      border-radius: 8px;
+    }
+
+    .ant-btn-primary {
+      border-radius: 8px;
+      padding: 8px 24px;
+      height: 40px;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(24, 144, 255, 0.3);
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(24, 144, 255, 0.4);
+      }
+    }
+
+    .ant-btn-default {
+      border-radius: 8px;
+      padding: 8px 24px;
+      height: 40px;
+      font-weight: 500;
+      border: 1px solid #d9d9d9;
+      transition: all 0.3s ease;
+
+      &:hover {
+        border-color: #40a9ff;
+        color: #40a9ff;
       }
     }
 
     .ant-form-item:last-child {
       margin-bottom: 0;
+      margin-top: 32px;
     }
   }
 }

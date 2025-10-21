@@ -4,11 +4,19 @@ export default defineConfig({
   title: '云雾后台管理系统',
   npmClient: 'npm',
   
-  // 配置antd
-  antd: {},
+  // 启用插件
+  plugins: [
+    '@umijs/plugins/dist/antd',
+    '@umijs/plugins/dist/locale',
+  ],
   
-  // 开启react查询devtools
-  reactQuery: {},
+  // antd 插件配置
+  antd: {
+    // 使用 babel 方式引入 antd 样式
+    // import: true,
+    // 使用 less
+    style: 'less',
+  },
   
   // 路由配置
   routes: [

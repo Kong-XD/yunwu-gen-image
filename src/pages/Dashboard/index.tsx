@@ -1,145 +1,260 @@
-import React from 'react';
-import { Card, Row, Col, Statistic, Table } from 'antd';
+import React, { useState } from 'react';
+import { Card, Upload, Button, Input, Space, message, Image } from 'antd';
 import {
-  UserOutlined,
-  ShoppingCartOutlined,
-  DollarOutlined,
-  RiseOutlined,
+  CloudUploadOutlined,
+  FileTextOutlined,
+  FileOutlined,
+  DeleteOutlined,
 } from '@ant-design/icons';
+// @ts-ignore
+import Papa from 'papaparse';
 import './index.less';
 
+const { TextArea } = Input;
+
 const Dashboard: React.FC = () => {
-  const statisticsData = [
-    {
-      title: '总用户数',
-      value: 11280,
-      icon: <UserOutlined />,
-      color: '#1890ff',
-    },
-    {
-      title: '总订单数',
-      value: 8432,
-      icon: <ShoppingCartOutlined />,
-      color: '#52c41a',
-    },
-    {
-      title: '总收入',
-      value: 93264,
-      prefix: '¥',
-      icon: <DollarOutlined />,
-      color: '#faad14',
-    },
-    {
-      title: '增长率',
-      value: 32.8,
-      suffix: '%',
-      icon: <RiseOutlined />,
-      color: '#f5222d',
-    },
-  ];
+  const [fileList, setFileList] = useState<any[]>([]);
+  const [promptContent, setPromptContent] = useState('');
 
-  const recentOrdersColumns = [
-    {
-      title: '订单号',
-      dataIndex: 'orderNo',
-      key: 'orderNo',
+  // 参考图上传配置
+  const uploadProps = {
+    name: 'file',
+    multiple: true,
+    fileList,
+    beforeUpload: (file: any) => {
+      const isImage = file.type.startsWith('image/');
+      if (!isImage) {
+        message.error('只能上传图片文件!');
+        return false;
+      }
+      const isLt10M = file.size / 1024 / 1024 < 10;
+      if (!isLt10M) {
+        message.error('图片大小不能超过 10MB!');
+        return false;
+      }
+      return false; // 阻止自动上传
     },
-    {
-      title: '用户名',
-      dataIndex: 'userName',
-      key: 'userName',
+    onChange: (info: any) => {
+      setFileList(info.fileList.slice(-20)); // 最多20张
     },
-    {
-      title: '金额',
-      dataIndex: 'amount',
-      key: 'amount',
-      render: (text: number) => `¥${text}`,
+    onDrop: (e: any) => {
+      console.log('Dropped files', e.dataTransfer.files);
     },
-    {
-      title: '状态',
-      dataIndex: 'status',
-      key: 'status',
-      render: (text: string) => {
-        const statusMap: Record<string, { text: string; color: string }> = {
-          pending: { text: '待处理', color: '#faad14' },
-          processing: { text: '处理中', color: '#1890ff' },
-          completed: { text: '已完成', color: '#52c41a' },
-        };
-        const status = statusMap[text] || { text, color: '#666' };
-        return <span style={{ color: status.color }}>{status.text}</span>;
+    onRemove: (file: any) => {
+      const newFileList = fileList.filter(item => item.uid !== file.uid);
+      setFileList(newFileList);
+    },
+  };
+
+
+  // 删除图片
+  const handleRemoveImage = (uid: string) => {
+    const newFileList = fileList.filter(item => item.uid !== uid);
+    setFileList(newFileList);
+  };
+
+
+  // 使用PapaParse解析CSV内容
+  const parseCSV = (csvText: string) => {
+    console.log('CSV原始内容:', csvText);
+    
+    const result = Papa.parse(csvText, {
+      header: true,
+      skipEmptyLines: true,
+      encoding: 'UTF-8',
+      complete: (results: any) => {
+        console.log('PapaParse解析完成:', results);
       },
-    },
-    {
-      title: '创建时间',
-      dataIndex: 'createTime',
-      key: 'createTime',
-    },
-  ];
+      error: (error: any) => {
+        console.error('PapaParse解析错误:', error);
+      }
+    });
+    
+    console.log('解析结果:', result.data);
+    return result.data;
+  };
 
-  const recentOrdersData = [
-    {
-      key: '1',
-      orderNo: 'ORD20231001001',
-      userName: '张三',
-      amount: 299,
-      status: 'completed',
-      createTime: '2024-10-20 10:30',
-    },
-    {
-      key: '2',
-      orderNo: 'ORD20231001002',
-      userName: '李四',
-      amount: 599,
-      status: 'processing',
-      createTime: '2024-10-20 11:20',
-    },
-    {
-      key: '3',
-      orderNo: 'ORD20231001003',
-      userName: '王五',
-      amount: 899,
-      status: 'pending',
-      createTime: '2024-10-20 12:15',
-    },
-    {
-      key: '4',
-      orderNo: 'ORD20231001004',
-      userName: '赵六',
-      amount: 1299,
-      status: 'completed',
-      createTime: '2024-10-20 13:45',
-    },
-  ];
+  // 处理文件上传
+  const handleFileUpload = (file: any) => {
+    // 检查是否为CSV文件
+    if (file.name.toLowerCase().endsWith('.csv')) {
+      // 使用FileReader读取文件，然后使用PapaParse解析
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const csvText = e.target?.result as string;
+        console.log('读取的CSV内容:', csvText);
+        
+        // 使用PapaParse解析CSV文本
+        Papa.parse(csvText, {
+          header: true,
+          skipEmptyLines: true,
+          encoding: 'UTF-8',
+          complete: (results: any) => {
+            console.log('PapaParse解析完成:', results);
+            const csvData = results.data;
+            
+            // 显示所有列名，帮助调试
+            if (csvData.length > 0) {
+              const headers = Object.keys(csvData[0]);
+              console.log('CSV列名:', headers);
+            }
+            
+            // 查找包含分镜提示词的行
+            const validShots = csvData.filter((row: any) => {
+              // 尝试不同的列名
+              const shotNumber = row['分镜数'] || row['分镜'] || row['序号'] || row['编号'];
+              const prompt = row['分镜提示词'] || row['提示词'] || row['内容'] || row['描述'];
+              
+              const hasShotNumber = shotNumber && shotNumber.toString().trim();
+              const hasPrompt = prompt && prompt.toString().trim();
+              
+              console.log('检查行:', row, 'hasShotNumber:', hasShotNumber, 'hasPrompt:', hasPrompt);
+              return hasShotNumber && hasPrompt;
+            });
+            
+            console.log('有效的分镜数据:', validShots);
+            
+            if (validShots.length === 0) {
+              message.warning('未找到有效的分镜提示词数据，请检查CSV文件格式');
+              
+              // 显示调试信息
+              const debugInfo = `CSV调试信息:\n\n原始内容:\n${csvText.substring(0, 500)}...\n\n解析后的数据:\n${JSON.stringify(csvData.slice(0, 3), null, 2)}`;
+              setPromptContent(debugInfo);
+              return;
+            }
+            
+            const shotPrompts = validShots
+              .map((row: any) => {
+                const shotNumber = row['分镜数'] || row['分镜'] || row['序号'] || row['编号'] || '';
+                const prompt = row['分镜提示词'] || row['提示词'] || row['内容'] || row['描述'] || '';
+                return `分镜${shotNumber}:\n${prompt}`;
+              })
+              .join('\n\n' + '='.repeat(50) + '\n\n');
+            
+            setPromptContent(shotPrompts);
+            message.success(`成功解析CSV文件，提取了${validShots.length}条分镜提示词`);
+          },
+          error: (error: any) => {
+            console.error('PapaParse解析错误:', error);
+            message.error('CSV文件解析失败，请检查文件格式');
+          }
+        });
+      };
+      
+      // 尝试不同的编码
+      reader.readAsText(file, 'UTF-8');
+    } else {
+      // JSON文件使用FileReader
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target?.result as string;
+        setPromptContent(content);
+        message.success('文件内容已加载到文本区域');
+      };
+      reader.readAsText(file);
+    }
+    
+    return false; // 阻止自动上传
+  };
+
+  // CSV/JSON 文件上传配置
+  const fileUploadProps = {
+    name: 'file',
+    accept: '.csv,.json',
+    beforeUpload: handleFileUpload,
+    showUploadList: false,
+  };
 
   return (
     <div className="dashboard-page">
-      <h2 className="page-title">数据概览</h2>
-      
-      <Row gutter={16} className="statistics-row">
-        {statisticsData.map((item, index) => (
-          <Col span={6} key={index}>
-            <Card className="statistic-card">
-              <div className="statistic-icon" style={{ backgroundColor: item.color }}>
-                {item.icon}
+      <div className="page-layout">
+        {/* 左侧列 */}
+        <div className="left-column">
+          {/* 参考图上传 */}
+          <Card 
+            title={
+              <span>
+                <CloudUploadOutlined style={{ marginRight: 8, color: '#722ed1' }} />
+                参考图上传
+              </span>
+            }
+            className="upload-card"
+          >
+            <Upload.Dragger {...uploadProps} className="upload-dragger">
+              <p className="ant-upload-drag-icon">
+                <CloudUploadOutlined style={{ fontSize: 48, color: '#722ed1' }} />
+              </p>
+              <p className="ant-upload-text">拖拽图片到此处,或点击选择</p>
+              <p className="ant-upload-hint">
+                支持 JPG、PNG、GIF 格式，单个文件不超过 10MB
+              </p>
+            </Upload.Dragger>
+            <div className="upload-info">
+              {fileList.length}/20 images
+            </div>
+            
+            {/* 图片预览区域 */}
+            {fileList.length > 0 && (
+              <div className="image-preview-section">
+                <div className="preview-title">已上传图片</div>
+                <div className="image-grid">
+                  {fileList.map((file) => (
+                    <div key={file.uid} className="image-item">
+                      <Image
+                        src={file.thumbUrl || URL.createObjectURL(file.originFileObj)}
+                        alt={file.name}
+                        className="preview-image"
+                        preview={{
+                          mask: <div className="preview-mask">预览</div>
+                        }}
+                      />
+                      <Button
+                        type="text"
+                        danger
+                        icon={<DeleteOutlined />}
+                        className="delete-btn"
+                        onClick={() => handleRemoveImage(file.uid)}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-              <Statistic
-                title={item.title}
-                value={item.value}
-                prefix={item.prefix}
-                suffix={item.suffix}
-              />
-            </Card>
-          </Col>
-        ))}
-      </Row>
+            )}
+          </Card>
 
-      <Card title="最近订单" className="recent-orders-card">
-        <Table
-          columns={recentOrdersColumns}
-          dataSource={recentOrdersData}
-          pagination={false}
-        />
-      </Card>
+          {/* 提示词导入/导出 */}
+          <Card 
+            title={
+              <span>
+                <FileTextOutlined style={{ marginRight: 8, color: '#722ed1' }} />
+                提示词导入/导出
+              </span>
+            }
+            className="prompt-card"
+          >
+            <TextArea
+              value={promptContent}
+              onChange={(e) => setPromptContent(e.target.value)}
+              placeholder="粘贴JSON内容或拖拽JSON/CSV文件..."
+              rows={8}
+              className="prompt-textarea"
+            />
+            
+            <div className="prompt-buttons">
+              <Upload {...fileUploadProps}>
+                <Button 
+                  type="primary" 
+                  icon={<FileOutlined />}
+                  className="upload-file-btn"
+                >
+                  JSON/CSV
+                </Button>
+              </Upload>
+            </div>
+
+          </Card>
+        </div>
+      </div>
     </div>
   );
 };

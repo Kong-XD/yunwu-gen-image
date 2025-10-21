@@ -10,12 +10,14 @@
     "setup": "umi setup"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.8.0",
+    "@ant-design/pro-layout": "^7.17.0",
+    "@umijs/plugins": "^4.0.74",
     "antd": "^4.24.15",
+    "papaparse": "^5.5.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "umi": "^4.0.74",
-    "@ant-design/icons": "^4.8.0",
-    "@ant-design/pro-layout": "^7.17.0"
+    "umi": "^4.0.74"
   },
   "devDependencies": {
     "@types/react": "^18.2.0",
@@ -23,5 +25,3 @@
     "typescript": "^5.0.0"
   }
 }
-
-

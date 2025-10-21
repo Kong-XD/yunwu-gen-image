@@ -1,7 +1,66 @@
 .users-page {
+  padding: 32px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
   :global {
+    .ant-card {
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border: none;
+    }
+
+    .ant-card-head {
+      border-bottom: 1px solid #f0f0f0;
+      padding: 20px 24px;
+    }
+
     .ant-card-head-title {
+      font-weight: 600;
+      font-size: 18px;
+      color: #262626;
+    }
+
+    .ant-card-body {
+      padding: 24px;
+    }
+
+    .ant-btn-primary {
+      border-radius: 8px;
       font-weight: 500;
+      box-shadow: 0 2px 8px rgba(24, 144, 255, 0.3);
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(24, 144, 255, 0.4);
+      }
+    }
+
+    .ant-table {
+      border-radius: 8px;
+    }
+
+    .ant-table-thead > tr > th {
+      background: #fafafa;
+      font-weight: 600;
+      color: #262626;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .ant-table-tbody > tr {
+      transition: all 0.3s ease;
+
+      &:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+    }
+
+    .ant-tag {
+      border-radius: 6px;
+      padding: 2px 10px;
+      font-weight: 500;
+      border: none;
     }
   }
 }

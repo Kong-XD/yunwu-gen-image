@@ -16,7 +16,10 @@ body {
     'Segoe UI Symbol', 'Noto Color Emoji';
   font-size: 14px;
   color: rgba(0, 0, 0, 0.85);
-  background-color: #f0f2f5;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
 }
 
 /* 滚动条样式 */
@@ -26,22 +29,122 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: rgba(0, 0, 0, 0.05);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: rgba(114, 46, 209, 0.3);
   border-radius: 4px;
+  transition: background 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: rgba(114, 46, 209, 0.5);
 }
 
 /* 覆盖antd默认样式 */
 .ant-layout {
-  background: #f0f2f5;
+  background: transparent;
+}
+
+/* 优化Card样式 */
+.ant-card {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+/* 优化Modal样式 */
+.ant-modal-content {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.ant-modal-header {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 20px 24px;
+}
+
+.ant-modal-title {
+  font-weight: 600;
+  font-size: 18px;
+  color: #262626;
+}
+
+.ant-modal-body {
+  padding: 24px;
+}
+
+/* 优化Button样式 */
+.ant-btn {
+  border-radius: 10px;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 40px;
+  padding: 0 20px;
+}
+
+.ant-btn-primary {
+  background: linear-gradient(135deg, #722ed1 0%, #9254de 100%);
+  border: none;
+  box-shadow: 0 4px 12px rgba(114, 46, 209, 0.3);
+  
+  &:hover {
+    background: linear-gradient(135deg, #9254de 0%, #b37feb 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(114, 46, 209, 0.4);
+  }
+}
+
+/* 优化Tag样式 */
+.ant-tag {
+  border-radius: 8px;
+  padding: 4px 12px;
+  font-weight: 600;
+  border: none;
+  font-size: 12px;
+}
+
+/* 优化Input样式 */
+.ant-input,
+.ant-input-number,
+.ant-select-selector {
+  border-radius: 10px;
+  border: 2px solid #e8e8e8;
+  transition: all 0.3s ease;
+  
+  &:hover,
+  &:focus {
+    border-color: #722ed1;
+    box-shadow: 0 0 0 3px rgba(114, 46, 209, 0.1);
+  }
+}
+
+/* 优化Modal样式 */
+.ant-modal-content {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+}
+
+.ant-modal-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 24px 28px;
+  background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+}
+
+.ant-modal-title {
+  font-weight: 700;
+  font-size: 18px;
+  color: #1a1a1a;
+}
+
+.ant-modal-body {
+  padding: 28px;
 }
 
 
