@@ -1,0 +1,27 @@
+{
+  "name": "yunwu-admin",
+  "version": "1.0.0",
+  "description": "后台管理系统",
+  "scripts": {
+    "dev": "umi dev",
+    "build": "umi build",
+    "start": "umi dev",
+    "postinstall": "umi setup",
+    "setup": "umi setup"
+  },
+  "dependencies": {
+    "antd": "^4.24.15",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "umi": "^4.0.74",
+    "@ant-design/icons": "^4.8.0",
+    "@ant-design/pro-layout": "^7.17.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "typescript": "^5.0.0"
+  }
+}
+
+
