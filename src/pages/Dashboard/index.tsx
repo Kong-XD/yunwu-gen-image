@@ -8,7 +8,8 @@ import {
   UploadOutlined,
   KeyOutlined,
   BulbOutlined,
-  SettingOutlined
+  SettingOutlined,
+  PlusOutlined
 } from '@ant-design/icons';
 // @ts-ignore
 import Papa from 'papaparse';
@@ -595,7 +596,15 @@ const Dashboard: React.FC = () => {
                   })}
                 </div>
               ) : (
-                <div className="no-scene-message">暂无场景</div>
+                <div className="scene-empty-state">
+                  <div className="empty-icon">
+                    <GlobalOutlined />
+                  </div>
+                  <div className="empty-title">暂无场景数据</div>
+                  <div className="empty-description">
+                    请上传包含场景信息的JSON或CSV文件
+                  </div>
+                </div>
               )}
             </div>
           </Card>
