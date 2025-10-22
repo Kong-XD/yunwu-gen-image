@@ -41,6 +41,7 @@ const Dashboard: React.FC = () => {
   });
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedImages, setGeneratedImages] = useState<any[]>([]);
+  const [generationProgress, setGenerationProgress] = useState<{[key: number]: string}>({});
 
   // 处理API密钥变化
   const handleApiKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -253,6 +254,91 @@ const Dashboard: React.FC = () => {
     }
   };
 
+  // 带重试的API调用函数
+  const callGenerateAPIWithRetry = async (prompt: string, base64Image: string, maxRetries: number = 3) => {
+    let lastError: any;
+    
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        console.log(`API调用尝试 ${attempt}/${maxRetries}`);
+        const result = await callGenerateAPI(prompt, base64Image);
+        return result;
+      } catch (error) {
+        lastError = error;
+        console.error(`API调用失败 (尝试 ${attempt}/${maxRetries}):`, error);
+        
+        if (attempt < maxRetries) {
+          // 重试前等待一段时间，使用指数退避
+          const delay = Math.min(1000 * Math.pow(2, attempt - 1), 5000);
+          console.log(`等待 ${delay}ms 后重试...`);
+          await new Promise(resolve => setTimeout(resolve, delay));
+        }
+      }
+    }
+    
+    throw lastError;
+  };
+
+  // 处理单个场景生成
+  const generateSingleScene = async (sceneIndex: number, scene: any, base64Image: string) => {
+    const parsedPrompt = parseScenePrompt(scene);
+    
+    // 构建提示词
+    let promptText = '';
+    if (parsedPrompt && parsedPrompt.subject && parsedPrompt.subject.action) {
+      promptText = parsedPrompt.subject.action;
+    } else {
+      // 如果没有解析到结构化数据，使用原始提示词
+      promptText = scene['分镜提示词'] || scene['提示词'] || scene['内容'] || scene['描述'] || '';
+    }
+
+    // 添加自定义风格
+    if (customStyle.trim()) {
+      promptText += `\n\n风格要求：${customStyle}`;
+    }
+
+    try {
+      // 更新进度状态
+      setGenerationProgress(prev => ({
+        ...prev,
+        [sceneIndex]: '生成中...'
+      }));
+      
+      console.log(`开始生成场景${sceneIndex + 1}的图片...`);
+      const result = await callGenerateAPIWithRetry(promptText, base64Image);
+      
+      // 更新进度状态为成功
+      setGenerationProgress(prev => ({
+        ...prev,
+        [sceneIndex]: '生成成功'
+      }));
+      
+      return {
+        sceneIndex,
+        sceneData: scene,
+        result: result,
+        success: true,
+        error: null
+      };
+    } catch (error) {
+      console.error(`场景${sceneIndex + 1}生成失败:`, error);
+      
+      // 更新进度状态为失败
+      setGenerationProgress(prev => ({
+        ...prev,
+        [sceneIndex]: '生成失败'
+      }));
+      
+      return {
+        sceneIndex,
+        sceneData: scene,
+        result: null,
+        success: false,
+        error: error
+      };
+    }
+  };
+
   // 处理全部生成
   const handleGenerateAll = async () => {
     // 验证必要参数
@@ -272,64 +358,77 @@ const Dashboard: React.FC = () => {
     }
 
     setIsGenerating(true);
-    const results: any[] = [];
+    setGenerationProgress({});
+    // 初始化数组，确保有正确的长度
+    setGeneratedImages(new Array(validShots.length).fill(null));
 
     try {
       // 获取第一张图片作为参考图
       const referenceImage = fileList[0];
       const base64Image = await convertImageToBase64(referenceImage);
 
-      // 为每个场景生成图片
-      for (let i = 0; i < validShots.length; i++) {
-        const scene = validShots[i];
-        const parsedPrompt = parseScenePrompt(scene);
-        
-        // 构建提示词
-        let promptText = '';
-        if (parsedPrompt && parsedPrompt.subject && parsedPrompt.subject.action) {
-          promptText = parsedPrompt.subject.action;
-        } else {
-          // 如果没有解析到结构化数据，使用原始提示词
-          promptText = scene['分镜提示词'] || scene['提示词'] || scene['内容'] || scene['描述'] || '';
-        }
+      console.log(`开始并发生成 ${validShots.length} 个场景的图片...`);
 
-        // 添加自定义风格
-        if (customStyle.trim()) {
-          promptText += `\n\n风格要求：${customStyle}`;
-        }
-
-        console.log(`正在生成第${i + 1}个场景的图片...`);
-        
+      // 创建所有场景的生成任务，每个任务完成后立即更新UI
+      const generateTasks = validShots.map(async (scene, index) => {
         try {
-          const result = await callGenerateAPI(promptText, base64Image);
-          results.push({
-            sceneIndex: i,
-            sceneData: scene,
-            result: result,
-            success: true
+          const result = await generateSingleScene(index, scene, base64Image);
+          
+          // 立即更新生成的图片状态
+          setGeneratedImages(prev => {
+            const newResults = [...prev];
+            newResults[index] = result;
+            return newResults;
           });
-          message.success(`场景${i + 1}生成成功`);
+          
+          if (result.success) {
+            message.success(`场景${index + 1}生成成功`);
+          } else {
+            message.error(`场景${index + 1}生成失败: ${result.error instanceof Error ? result.error.message : '未知错误'}`);
+          }
+          
+          return result;
         } catch (error) {
-          console.error(`场景${i + 1}生成失败:`, error);
-          results.push({
-            sceneIndex: i,
+          const errorResult = {
+            sceneIndex: index,
             sceneData: scene,
-            error: error,
-            success: false
+            result: null,
+            success: false,
+            error: error
+          };
+          
+          // 立即更新错误状态
+          setGeneratedImages(prev => {
+            const newResults = [...prev];
+            newResults[index] = errorResult;
+            return newResults;
           });
-          message.error(`场景${i + 1}生成失败: ${error instanceof Error ? error.message : '未知错误'}`);
+          
+          message.error(`场景${index + 1}生成失败: ${error instanceof Error ? error.message : '未知错误'}`);
+          return errorResult;
         }
+      });
 
-        // 添加延迟避免请求过于频繁
-        if (i < validShots.length - 1) {
-          await new Promise(resolve => setTimeout(resolve, 1000));
-        }
-      }
-
-      setGeneratedImages(results);
+      // 等待所有任务完成
+      const taskResults = await Promise.allSettled(generateTasks);
       
-      const successCount = results.filter(r => r.success).length;
-      const failCount = results.filter(r => !r.success).length;
+      // 统计最终结果
+      const finalResults = taskResults.map((result, index) => {
+        if (result.status === 'fulfilled') {
+          return result.value;
+        } else {
+          return {
+            sceneIndex: index,
+            sceneData: validShots[index],
+            result: null,
+            success: false,
+            error: result.reason
+          };
+        }
+      });
+
+      const successCount = finalResults.filter(r => r.success).length;
+      const failCount = finalResults.filter(r => !r.success).length;
       
       if (successCount > 0) {
         message.success(`批量生成完成！成功：${successCount}个，失败：${failCount}个`);
@@ -343,27 +442,6 @@ const Dashboard: React.FC = () => {
     } finally {
       setIsGenerating(false);
     }
-  };
-
-
-  // 使用PapaParse解析CSV内容
-  const parseCSV = (csvText: string) => {
-    console.log('CSV原始内容:', csvText);
-    
-    const result = Papa.parse(csvText, {
-      header: true,
-      skipEmptyLines: true,
-      encoding: 'UTF-8',
-      complete: (results: any) => {
-        console.log('PapaParse解析完成:', results);
-      },
-      error: (error: any) => {
-        console.error('PapaParse解析错误:', error);
-      }
-    });
-    
-    console.log('解析结果:', result.data);
-    return result.data;
   };
 
   // 处理文件上传
@@ -752,21 +830,39 @@ const Dashboard: React.FC = () => {
                                 <span>生成的图片</span>
                               </div>
                               {(() => {
-                                const generatedResult = generatedImages.find(r => r.sceneIndex === index);
+                                // 安全地获取生成结果，避免undefined错误
+                                const generatedResult = generatedImages[index];
+                                
                                 if (generatedResult && generatedResult.success) {
-                                  // 显示生成的图片
-                                  return (
-                                    <div className="generated-image">
-                                      <Image
-                                        src={generatedResult.result?.choices?.[0]?.message?.content || ''}
-                                        alt={`场景${index + 1}生成的图片`}
-                                        className="result-image"
-                                        preview={{
-                                          mask: <div className="preview-mask">预览</div>
-                                        }}
-                                      />
-                                    </div>
-                                  );
+                                  // 从API返回的content中提取图片URL
+                                  const content = generatedResult.result?.choices?.[0]?.message?.content || '';
+                                  const imageUrlMatch = content.match(/!\[image\]\((https?:\/\/[^)]+)\)/);
+                                  const imageUrl = imageUrlMatch ? imageUrlMatch[1] : '';
+                                  
+                                  if (imageUrl) {
+                                    // 显示生成的图片
+                                    return (
+                                      <div className="generated-image">
+                                        <Image
+                                          src={imageUrl}
+                                          alt={`场景${index + 1}生成的图片`}
+                                          className="result-image"
+                                          preview={{
+                                            mask: <div className="preview-mask">预览</div>
+                                          }}
+                                        />
+                                      </div>
+                                    );
+                                  } else {
+                                    // 如果无法提取图片URL，显示原始内容
+                                    return (
+                                      <div className="generated-image">
+                                        <div className="content-display">
+                                          <div className="content-text">{content}</div>
+                                        </div>
+                                      </div>
+                                    );
+                                  }
                                 } else if (generatedResult && !generatedResult.success) {
                                   // 显示错误状态
                                   return (
@@ -776,11 +872,12 @@ const Dashboard: React.FC = () => {
                                     </div>
                                   );
                                 } else if (isGenerating) {
-                                  // 显示生成中状态
+                                  // 显示生成中状态，显示具体进度
+                                  const progress = generationProgress[index] || '等待中...';
                                   return (
                                     <div className="image-placeholder generating">
                                       <div className="image-number">{index + 1}</div>
-                                      <div className="generating-text">生成中...</div>
+                                      <div className="generating-text">{progress}</div>
                                     </div>
                                   );
                                 } else {
