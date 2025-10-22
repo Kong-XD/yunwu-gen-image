@@ -39,6 +39,8 @@ const Dashboard: React.FC = () => {
     // 从localStorage加载自定义风格
     return localStorage.getItem('customStyle') || '';
   });
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generatedImages, setGeneratedImages] = useState<any[]>([]);
 
   // 处理API密钥变化
   const handleApiKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -152,6 +154,7 @@ const Dashboard: React.FC = () => {
   // 参考图上传配置
   const uploadProps = {
     name: 'file',
+    accept: '.jpg,.jpeg,.png,.gif',
     multiple: true,
     fileList,
     beforeUpload: (file: any) => {
@@ -184,6 +187,162 @@ const Dashboard: React.FC = () => {
   const handleRemoveImage = (uid: string) => {
     const newFileList = fileList.filter(item => item.uid !== uid);
     setFileList(newFileList);
+  };
+
+  // 将图片文件转换为base64
+  const convertImageToBase64 = (file: any): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64 = reader.result as string;
+        // 移除data:image/xxx;base64,前缀，只保留base64数据
+        const base64Data = base64.split(',')[1];
+        resolve(base64Data);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file.originFileObj || file);
+    });
+  };
+
+  // 调用API生成图片
+  const callGenerateAPI = async (prompt: string, base64Image: string) => {
+    const requestBody = {
+      model: "sora_image",
+      messages: [
+        {
+          role: "system",
+          content: "你是一个AI图像生成助手，根据用户的文字描述和参考图片生成一张高质量的图片。\n\n关键要求：你必须严格按照指定的宽高比生成图片。用户选择的宽高比是 Portrait（2:3）。\n\n这是强制性要求，必须严格遵守。不得生成其他宽高比的图片。\n\n宽高比是最重要的约束条件，必须严格执行。"
+        },
+        {
+          role: "user",
+          content: [
+            {
+              type: "text",
+              text: prompt
+            },
+            {
+              type: "image_url",
+              image_url: {
+                url: `data:image/jpeg;base64,${base64Image}`
+              }
+            }
+          ]
+        }
+      ]
+    };
+
+    try {
+      const response = await fetch('https://yunwu.ai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify(requestBody)
+      });
+
+      if (!response.ok) {
+        throw new Error(`API请求失败: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('API调用失败:', error);
+      throw error;
+    }
+  };
+
+  // 处理全部生成
+  const handleGenerateAll = async () => {
+    // 验证必要参数
+    if (!apiKey.trim()) {
+      message.error('请先设置API密钥');
+      return;
+    }
+
+    if (validShots.length === 0) {
+      message.error('请先上传包含场景数据的CSV文件');
+      return;
+    }
+
+    if (fileList.length === 0) {
+      message.error('请先上传参考图片');
+      return;
+    }
+
+    setIsGenerating(true);
+    const results: any[] = [];
+
+    try {
+      // 获取第一张图片作为参考图
+      const referenceImage = fileList[0];
+      const base64Image = await convertImageToBase64(referenceImage);
+
+      // 为每个场景生成图片
+      for (let i = 0; i < validShots.length; i++) {
+        const scene = validShots[i];
+        const parsedPrompt = parseScenePrompt(scene);
+        
+        // 构建提示词
+        let promptText = '';
+        if (parsedPrompt && parsedPrompt.subject && parsedPrompt.subject.action) {
+          promptText = parsedPrompt.subject.action;
+        } else {
+          // 如果没有解析到结构化数据，使用原始提示词
+          promptText = scene['分镜提示词'] || scene['提示词'] || scene['内容'] || scene['描述'] || '';
+        }
+
+        // 添加自定义风格
+        if (customStyle.trim()) {
+          promptText += `\n\n风格要求：${customStyle}`;
+        }
+
+        console.log(`正在生成第${i + 1}个场景的图片...`);
+        
+        try {
+          const result = await callGenerateAPI(promptText, base64Image);
+          results.push({
+            sceneIndex: i,
+            sceneData: scene,
+            result: result,
+            success: true
+          });
+          message.success(`场景${i + 1}生成成功`);
+        } catch (error) {
+          console.error(`场景${i + 1}生成失败:`, error);
+          results.push({
+            sceneIndex: i,
+            sceneData: scene,
+            error: error,
+            success: false
+          });
+          message.error(`场景${i + 1}生成失败: ${error instanceof Error ? error.message : '未知错误'}`);
+        }
+
+        // 添加延迟避免请求过于频繁
+        if (i < validShots.length - 1) {
+          await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+      }
+
+      setGeneratedImages(results);
+      
+      const successCount = results.filter(r => r.success).length;
+      const failCount = results.filter(r => !r.success).length;
+      
+      if (successCount > 0) {
+        message.success(`批量生成完成！成功：${successCount}个，失败：${failCount}个`);
+      } else {
+        message.error('所有场景生成失败，请检查API密钥和网络连接');
+      }
+
+    } catch (error) {
+      console.error('批量生成失败:', error);
+      message.error('批量生成失败，请重试');
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
 
@@ -498,7 +657,15 @@ const Dashboard: React.FC = () => {
                     JSON/CSV
                   </Button>
                 </Upload>
-                <Button type="primary" icon={<PlayCircleOutlined />}>全部生成</Button>
+                <Button 
+                  type="primary" 
+                  icon={<PlayCircleOutlined />}
+                  onClick={handleGenerateAll}
+                  loading={isGenerating}
+                  disabled={isGenerating || validShots.length === 0 || fileList.length === 0 || !apiKey.trim()}
+                >
+                  {isGenerating ? '生成中...' : '全部生成'}
+                </Button>
               </Space>
             }
             className="scene-management-card"
@@ -584,10 +751,48 @@ const Dashboard: React.FC = () => {
                               <div className="panel-title">
                                 <span>生成的图片</span>
                               </div>
-                              <div className="image-placeholder">
-                                <div className="image-number">{index + 1}</div>
-                                <div className="waiting-text">Waiting...</div>
-                              </div>
+                              {(() => {
+                                const generatedResult = generatedImages.find(r => r.sceneIndex === index);
+                                if (generatedResult && generatedResult.success) {
+                                  // 显示生成的图片
+                                  return (
+                                    <div className="generated-image">
+                                      <Image
+                                        src={generatedResult.result?.choices?.[0]?.message?.content || ''}
+                                        alt={`场景${index + 1}生成的图片`}
+                                        className="result-image"
+                                        preview={{
+                                          mask: <div className="preview-mask">预览</div>
+                                        }}
+                                      />
+                                    </div>
+                                  );
+                                } else if (generatedResult && !generatedResult.success) {
+                                  // 显示错误状态
+                                  return (
+                                    <div className="image-placeholder error">
+                                      <div className="image-number">{index + 1}</div>
+                                      <div className="error-text">生成失败</div>
+                                    </div>
+                                  );
+                                } else if (isGenerating) {
+                                  // 显示生成中状态
+                                  return (
+                                    <div className="image-placeholder generating">
+                                      <div className="image-number">{index + 1}</div>
+                                      <div className="generating-text">生成中...</div>
+                                    </div>
+                                  );
+                                } else {
+                                  // 显示等待状态
+                                  return (
+                                    <div className="image-placeholder">
+                                      <div className="image-number">{index + 1}</div>
+                                      <div className="waiting-text">Waiting...</div>
+                                    </div>
+                                  );
+                                }
+                              })()}
                             </div>
                           </div>
                         </div>
