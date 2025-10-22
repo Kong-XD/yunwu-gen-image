@@ -17,6 +17,88 @@ const { TextArea } = Input;
 const Dashboard: React.FC = () => {
   const [fileList, setFileList] = useState<any[]>([]);
   const [promptContent, setPromptContent] = useState('');
+  const [validShots, setValidShots] = useState<any[]>([]);
+  const [editingScene, setEditingScene] = useState<number | null>(null);
+  const [editingContent, setEditingContent] = useState<any>({});
+
+  // 解析场景的提示词内容
+  const parseScenePrompt = (sceneData: any) => {
+    if (!sceneData) return null;
+    
+    const prompt = sceneData['分镜提示词'] || sceneData['提示词'] || sceneData['内容'] || sceneData['描述'] || '';
+    
+    // 尝试解析JSON格式的提示词
+    try {
+      const parsedPrompt = JSON.parse(prompt);
+      return parsedPrompt;
+    } catch (error) {
+      // 如果不是JSON格式，返回原始文本
+      return {
+        subject: {
+          characters: '',
+          expression: '',
+          action: prompt
+        },
+        environment: '',
+        time: '',
+        weather: '',
+        perspective: '',
+        shotType: ''
+      };
+    }
+  };
+
+  // 开始编辑场景
+  const startEditing = (sceneIndex: number) => {
+    const sceneData = validShots[sceneIndex];
+    const parsedPrompt = parseScenePrompt(sceneData);
+    setEditingScene(sceneIndex);
+    setEditingContent(parsedPrompt || {});
+  };
+
+  // 取消编辑
+  const cancelEditing = () => {
+    setEditingScene(null);
+    setEditingContent({});
+  };
+
+  // 保存编辑
+  const saveEditing = () => {
+    if (editingScene !== null) {
+      const updatedShots = [...validShots];
+      const promptText = JSON.stringify(editingContent);
+      updatedShots[editingScene] = {
+        ...updatedShots[editingScene],
+        '分镜提示词': promptText,
+        '提示词': promptText,
+        '内容': promptText,
+        '描述': promptText
+      };
+      setValidShots(updatedShots);
+      setEditingScene(null);
+      setEditingContent({});
+      message.success('场景内容已保存');
+    }
+  };
+
+  // 更新编辑内容
+  const updateEditingContent = (field: string, value: string) => {
+    setEditingContent((prev: any) => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  // 更新主体内容
+  const updateSubjectContent = (field: string, value: string) => {
+    setEditingContent((prev: any) => ({
+      ...prev,
+      subject: {
+        ...prev.subject,
+        [field]: value
+      }
+    }));
+  };
 
   // 参考图上传配置
   const uploadProps = {
@@ -161,6 +243,9 @@ const Dashboard: React.FC = () => {
               return;
             }
             
+            // 存储validShots到状态中
+            setValidShots(validShots);
+            
             const shotPrompts = validShots
               .map((row: any) => {
                 const shotNumber = row['分镜数'] || row['分镜'] || row['序号'] || row['编号'] || '';
@@ -301,11 +386,168 @@ const Dashboard: React.FC = () => {
                </span>
              }
              extra={<Button type="primary" icon={<PlayCircleOutlined />}>全部生成</Button>}
-             className="prompt-card"
+             className="scene-management-card"
            >
-             <div className="scene-management-content">
-               <div className="no-scene-message">暂无场景</div>
-               <div className="input-prompt">请输入JSON内容</div>
+             <div className="scene-content-layout">
+               {validShots.length > 0 ? (
+                 <div className="scenes-list">
+                   {validShots.map((scene, index) => {
+                     const parsedPrompt = parseScenePrompt(scene);
+                     const shotNumber = scene['分镜数'] || scene['分镜'] || scene['序号'] || scene['编号'] || (index + 1);
+                     
+                     return (
+                       <div key={index} className="scene-item">
+                         {/* 场景标题 */}
+                         <div className="scene-header">
+                           <div className="scene-title">场景 {shotNumber}</div>
+                           <div className="scene-actions">
+                             {editingScene === index ? (
+                               <div className="edit-buttons">
+                                 <Button size="small" onClick={saveEditing} type="primary">保存</Button>
+                                 <Button size="small" onClick={cancelEditing}>取消</Button>
+                               </div>
+                             ) : (
+                               <div className="action-buttons">
+                                 <Button size="small" onClick={() => startEditing(index)}>编辑</Button>
+                                 <Button type="primary" icon={<PlayCircleOutlined />} size="small">
+                                   单个生成
+                                 </Button>
+                               </div>
+                             )}
+                           </div>
+                         </div>
+
+                         {/* 左右两栏布局 */}
+                         <div className="scene-content">
+                           {/* 左栏：Image Prompt */}
+                           <div className="scene-left-panel">
+                             <div className="panel-content">
+                               <div className="panel-title">
+                                 Image Prompt
+                               </div>
+                               {editingScene === index ? (
+                                 <div className="image-prompt-section">
+                                   {/* 编辑模式 */}
+                                   <div className="prompt-section">
+                                     <div className="field-item">
+                                       <TextArea
+                                        style={{ height: 300 }}
+                                         value={editingContent.subject?.action || ''}
+                                         onChange={(e) => updateSubjectContent('action', e.target.value)}
+                                         placeholder="输入内容"
+                                       />
+                                     </div>
+                                   </div> 
+                                 </div>
+                               ) : (
+                                 <div className="image-prompt-section">
+                                   {/* 显示模式 */}
+                                   {parsedPrompt ? (
+                                     <>
+                                       {/* 主体部分 */}
+                                       {parsedPrompt.subject && (
+                                         <div className="prompt-section">
+                                           {parsedPrompt.subject.characters && (
+                                             <div className="field-item">
+                                               <div className="field-label">角色:</div>
+                                               <div className="field-value">{parsedPrompt.subject.characters}</div>
+                                             </div>
+                                           )}
+                                           {parsedPrompt.subject.expression && (
+                                             <div className="field-item">
+                                               <div className="field-label">表情:</div>
+                                               <div className="field-value">{parsedPrompt.subject.expression}</div>
+                                             </div>
+                                           )}
+                                           {parsedPrompt.subject.action && (
+                                             <div className="field-item">
+                                               <div className="field-value action-text">{parsedPrompt.subject.action}</div>
+                                             </div>
+                                           )}
+                                         </div>
+                                       )}
+
+                                       {/* 环境部分 */}
+                                       {parsedPrompt.environment && (
+                                         <div className="prompt-section">
+                                           <div className="section-title">[环境]</div>
+                                           <div className="field-item">
+                                             <div className="field-label">场景:</div>
+                                             <div className="field-value">{parsedPrompt.environment}</div>
+                                           </div>
+                                         </div>
+                                       )}
+
+                                       {/* 时间部分 */}
+                                       {parsedPrompt.time && (
+                                         <div className="prompt-section">
+                                           <div className="section-title">[时间]</div>
+                                           <div className="field-item">
+                                             <div className="field-label">时间:</div>
+                                             <div className="field-value">{parsedPrompt.time}</div>
+                                           </div>
+                                         </div>
+                                       )}
+
+                                       {/* 天气部分 */}
+                                       {parsedPrompt.weather && (
+                                         <div className="prompt-section">
+                                           <div className="section-title">[天气]</div>
+                                           <div className="field-item">
+                                             <div className="field-label">天气:</div>
+                                             <div className="field-value">{parsedPrompt.weather}</div>
+                                           </div>
+                                         </div>
+                                       )}
+
+                                       {/* 视角部分 */}
+                                       {parsedPrompt.perspective && (
+                                         <div className="prompt-section">
+                                           <div className="section-title">[视角]</div>
+                                           <div className="field-item">
+                                             <div className="field-label">视角:</div>
+                                             <div className="field-value">{parsedPrompt.perspective}</div>
+                                           </div>
+                                         </div>
+                                       )}
+
+                                       {/* 景别部分 */}
+                                       {parsedPrompt.shotType && (
+                                         <div className="prompt-section">
+                                           <div className="section-title">[景别]</div>
+                                           <div className="field-item">
+                                             <div className="field-label">景别:</div>
+                                             <div className="field-value">{parsedPrompt.shotType}</div>
+                                           </div>
+                                         </div>
+                                       )}
+                                     </>
+                                   ) : (
+                                     <div className="no-scene-message">暂无场景数据</div>
+                                   )}
+                                 </div>
+                               )}
+                             </div>
+                           </div>
+
+                           {/* 右栏：生成的图片 */}
+                           <div className="scene-right-panel">
+                             <div className="panel-content">
+                               {/* <div className="panel-title">生成的图片 (0/1)</div> */}
+                               <div className="image-placeholder">
+                                 <div className="image-number">{index + 1}</div>
+                                 <div className="waiting-text">Waiting...</div>
+                               </div>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                     );
+                   })}
+                 </div>
+               ) : (
+                 <div className="no-scene-message">暂无场景</div>
+               )}
              </div>
            </Card>
         </div>
