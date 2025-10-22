@@ -415,6 +415,7 @@ const Dashboard: React.FC = () => {
             className="custom-style-card"
           >
             <TextArea
+              style={{ height: 180 }}
               value={customStyle}
               onChange={handleCustomStyleChange}
               placeholder="请输入自定义风格描述，例如：动漫风格、写实风格、油画风格等..."
@@ -423,6 +424,10 @@ const Dashboard: React.FC = () => {
             />
           </Card>
 
+        </div>
+
+        {/* 右侧列 - 参考图上传和场景管理 */}
+        <div className="right-column">
           {/* 参考图上传 */}
           <Card 
             title={
@@ -474,128 +479,126 @@ const Dashboard: React.FC = () => {
               </div>
             )}
           </Card>
+          {/* 场景管理 */}
+          <Card 
+            title={
+              <span>
+                <GlobalOutlined style={{ marginRight: 8, color: '#722ed1' }} />
+                场景管理
+              </span>
+            }
+            extra={
+              <Space>
+                <Upload {...fileUploadProps}>
+                  <Button 
+                    type="default" 
+                    icon={<UploadOutlined />}
+                  >
+                    JSON/CSV
+                  </Button>
+                </Upload>
+                <Button type="primary" icon={<PlayCircleOutlined />}>全部生成</Button>
+              </Space>
+            }
+            className="scene-management-card"
+          >
+            <div className="scene-content-layout">
+              {validShots.length > 0 ? (
+                <div className="scenes-list">
+                  {validShots.map((scene, index) => {
+                    const parsedPrompt = parseScenePrompt(scene);
+                    const shotNumber = scene['分镜数'] || scene['分镜'] || scene['序号'] || scene['编号'] || (index + 1);
+                    
+                    return (
+                      <div key={index} className="scene-item">
+                        {/* 场景标题 */}
+                        <div className="scene-header">
+                          <div className="scene-title">场景 {shotNumber}</div>
+                          <div className="scene-actions">
+                            {editingScene === index ? (
+                              <div className="edit-buttons">
+                                <Button size="small" onClick={saveEditing} type="primary">保存</Button>
+                                <Button size="small" onClick={cancelEditing}>取消</Button>
+                              </div>
+                            ) : (
+                              <div className="action-buttons">
+                                <Button size="small" onClick={() => startEditing(index)}>编辑</Button>
+                                <Button type="primary" icon={<PlayCircleOutlined />} size="small">
+                                  单个生成
+                                </Button>
+                              </div>
+                            )}
+                          </div>
+                        </div>
 
-          
-           {/* 场景管理 */}
-           <Card 
-             title={
-               <span>
-                 <GlobalOutlined style={{ marginRight: 8, color: '#722ed1' }} />
-                 场景管理
-               </span>
-             }
-             extra={
-               <Space>
-                 <Upload {...fileUploadProps}>
-                   <Button 
-                     type="default" 
-                     icon={<UploadOutlined />}
-                   >
-                     JSON/CSV
-                   </Button>
-                 </Upload>
-                 <Button type="primary" icon={<PlayCircleOutlined />}>全部生成</Button>
-               </Space>
-             }
-             className="scene-management-card"
-           >
-             <div className="scene-content-layout">
-               {validShots.length > 0 ? (
-                 <div className="scenes-list">
-                   {validShots.map((scene, index) => {
-                     const parsedPrompt = parseScenePrompt(scene);
-                     const shotNumber = scene['分镜数'] || scene['分镜'] || scene['序号'] || scene['编号'] || (index + 1);
-                     
-                     return (
-                       <div key={index} className="scene-item">
-                         {/* 场景标题 */}
-                         <div className="scene-header">
-                           <div className="scene-title">场景 {shotNumber}</div>
-                           <div className="scene-actions">
-                             {editingScene === index ? (
-                               <div className="edit-buttons">
-                                 <Button size="small" onClick={saveEditing} type="primary">保存</Button>
-                                 <Button size="small" onClick={cancelEditing}>取消</Button>
-                               </div>
-                             ) : (
-                               <div className="action-buttons">
-                                 <Button size="small" onClick={() => startEditing(index)}>编辑</Button>
-                                 <Button type="primary" icon={<PlayCircleOutlined />} size="small">
-                                   单个生成
-                                 </Button>
-                               </div>
-                             )}
-                           </div>
-                         </div>
+                        {/* 左右两栏布局 */}
+                        <div className="scene-content">
+                          {/* 左栏：Image Prompt */}
+                          <div className="scene-left-panel">
+                            <div className="panel-content">
+                              <div className="panel-title">
+                                <span>Image Prompt</span>
+                              </div>
+                              {editingScene === index ? (
+                                <div className="image-prompt-section">
+                                  {/* 编辑模式 */}
+                                  <div className="prompt-section">
+                                    <div className="field-item">
+                                      <TextArea
+                                       style={{ height: 360 }}
+                                       value={editingContent.subject?.action || ''}
+                                       onChange={(e) => updateSubjectContent('action', e.target.value)}
+                                       placeholder="输入内容"
+                                      />
+                                    </div>
+                                  </div> 
+                                </div>
+                              ) : (
+                                <div className="image-prompt-section">
+                                  {/* 显示模式 */}
+                                  {parsedPrompt ? (
+                                    <>
+                                      {/* 主体部分 */}
+                                      {parsedPrompt.subject && (
+                                        <div className="prompt-section">
+                                          {parsedPrompt.subject.action && (
+                                            <div className="field-item">
+                                              <div className="field-value action-text">{parsedPrompt.subject.action}</div>
+                                            </div>
+                                          )}
+                                        </div>
+                                      )}               
+                                    </>
+                                  ) : (
+                                    <div className="no-scene-message">暂无场景数据</div>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          </div>
 
-                         {/* 左右两栏布局 */}
-                         <div className="scene-content">
-                           {/* 左栏：Image Prompt */}
-                           <div className="scene-left-panel">
-                             <div className="panel-content">
-                               <div className="panel-title">
-                                 <span>Image Prompt</span>
-                               </div>
-                               {editingScene === index ? (
-                                 <div className="image-prompt-section">
-                                   {/* 编辑模式 */}
-                                   <div className="prompt-section">
-                                     <div className="field-item">
-                                       <TextArea
-                                        style={{ height: 300 }}
-                                        value={editingContent.subject?.action || ''}
-                                        onChange={(e) => updateSubjectContent('action', e.target.value)}
-                                        placeholder="输入内容"
-                                       />
-                                     </div>
-                                   </div> 
-                                 </div>
-                               ) : (
-                                 <div className="image-prompt-section">
-                                   {/* 显示模式 */}
-                                   {parsedPrompt ? (
-                                     <>
-                                       {/* 主体部分 */}
-                                       {parsedPrompt.subject && (
-                                         <div className="prompt-section">
-                                           {parsedPrompt.subject.action && (
-                                             <div className="field-item">
-                                               <div className="field-value action-text">{parsedPrompt.subject.action}</div>
-                                             </div>
-                                           )}
-                                         </div>
-                                       )}               
-                                     </>
-                                   ) : (
-                                     <div className="no-scene-message">暂无场景数据</div>
-                                   )}
-                                 </div>
-                               )}
-                             </div>
-                           </div>
-
-                           {/* 右栏：生成的图片 */}
-                           <div className="scene-right-panel">
-                             <div className="panel-content">
-                               <div className="panel-title">
-                                 <span>生成的图片</span>
-                               </div>
-                               <div className="image-placeholder">
-                                 <div className="image-number">{index + 1}</div>
-                                 <div className="waiting-text">Waiting...</div>
-                               </div>
-                             </div>
-                           </div>
-                         </div>
-                       </div>
-                     );
-                   })}
-                 </div>
-               ) : (
-                 <div className="no-scene-message">暂无场景</div>
-               )}
-             </div>
-           </Card>
+                          {/* 右栏：生成的图片 */}
+                          <div className="scene-right-panel">
+                            <div className="panel-content">
+                              <div className="panel-title">
+                                <span>生成的图片</span>
+                              </div>
+                              <div className="image-placeholder">
+                                <div className="image-number">{index + 1}</div>
+                                <div className="waiting-text">Waiting...</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="no-scene-message">暂无场景</div>
+              )}
+            </div>
+          </Card>
         </div>
       </div>
     </div>

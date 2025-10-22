@@ -14,6 +14,14 @@
       display: flex;
       flex-direction: column;
       gap: 32px;
+      max-width: 350px;
+    }
+
+    .right-column {
+      flex: 3;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
     }
   }
 
@@ -595,10 +603,8 @@
 
         .prompt-section {
           margin-bottom: 20px;
-          padding: 16px;
           background: rgba(255, 255, 255, 0.6);
           border-radius: 8px;
-          border: 1px solid rgba(114, 46, 209, 0.1);
 
           .section-title {
             font-size: 16px;
@@ -815,6 +821,10 @@
 
   // 场景内容布局样式
   .scene-content-layout {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    
     .scenes-list {
       display: flex;
       flex-direction: column;
@@ -920,7 +930,7 @@
           }
 
           .scene-left-panel {
-            flex: 2;
+            flex: 3;
             display: flex;
             flex-direction: column;
             min-width: 0; // 防止内容溢出
@@ -969,7 +979,7 @@
           }
 
           .scene-right-panel {
-            flex: 1;
+            flex: 2;
             display: flex;
             flex-direction: column;
             min-width: 0; // 防止内容溢出
@@ -1022,7 +1032,6 @@
 
                 .prompt-section {
                   margin-bottom: 16px;
-                  padding: 12px;
                   background: rgba(255, 255, 255, 0.6);
                   border-radius: 8px;
 
@@ -1133,10 +1142,8 @@
 
       .prompt-section {
         margin-bottom: 20px;
-        padding: 16px;
         background: rgba(255, 255, 255, 0.6);
         border-radius: 8px;
-        border: 1px solid rgba(114, 46, 209, 0.1);
 
         .section-title {
           font-size: 16px;

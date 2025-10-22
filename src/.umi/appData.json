@@ -33,7 +33,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "preset",
@@ -46,7 +46,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 4
+        "register": 3
       },
       "enableBy": "register",
       "type": "preset",
@@ -63,7 +63,7 @@
             1
           ]
         },
-        "register": 8
+        "register": 3
       },
       "enableBy": "register",
       "type": "plugin",
@@ -77,10 +77,10 @@
       "time": {
         "hooks": {
           "onStart": [
-            2
+            1
           ]
         },
-        "register": 3
+        "register": 2
       },
       "enableBy": "register",
       "type": "plugin",
@@ -94,6 +94,13 @@
       "time": {
         "hooks": {
           "modifyRoutes": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -153,30 +160,45 @@
       "time": {
         "hooks": {
           "onDevCompileDone": [
-            12,
-            1,
+            28,
             2,
             2,
             1,
-            2,
+            1,
+            1,
+            1,
             4,
             2,
             3,
+            2,
+            2,
             5,
-            4,
-            2,
-            2,
-            2,
-            3,
             1,
+            5,
             2,
             1,
-            2,
-            2,
             1,
             3,
             5,
             1,
+            2,
+            2,
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            3,
+            1,
+            3,
+            1,
+            6,
+            1,
+            1,
+            2,
+            1,
             1,
             2,
             1,
@@ -184,19 +206,11 @@
             1,
             1,
             3,
-            1,
-            1,
-            1,
+            5,
             1,
             1,
             2,
-            1,
-            1,
-            1,
-            1,
-            1,
-            0,
-            1,
+            2,
             1
           ]
         },
@@ -214,55 +228,62 @@
       "time": {
         "hooks": {
           "modifyAppData": [
-            7
+            6
           ],
           "onGenerateFiles": [
-            2,
-            8,
-            37,
-            10,
+            1,
             11,
-            5,
-            4,
-            5,
-            5,
-            5,
-            4,
-            6,
-            10,
-            12,
             3,
+            5,
+            10,
+            3,
+            3,
+            4,
+            11,
+            8,
+            6,
+            7,
+            5,
+            5,
+            9,
             2,
-            10,
-            3,
+            11,
             6,
             3,
+            9,
+            4,
+            6,
             7,
             4,
+            4,
+            4,
+            4,
+            4,
+            5,
+            6,
+            5,
+            16,
+            5,
+            4,
+            5,
+            12,
+            4,
+            3,
+            3,
+            11,
+            3,
             8,
+            3,
+            5,
+            7,
             9,
             7,
-            5,
-            5,
-            3,
-            8,
-            3,
-            8,
-            7,
-            7,
-            8,
-            10,
-            13,
-            3,
             4,
-            8,
-            2,
-            4,
-            3,
-            6
+            6,
+            7
           ]
         },
-        "register": 17
+        "register": 16
       },
       "enableBy": "register",
       "type": "plugin",
@@ -276,6 +297,13 @@
       "time": {
         "hooks": {
           "addEntryCode": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -353,10 +381,6 @@
             0,
             0,
             0,
-            1,
-            0,
-            0,
-            0,
             0,
             0,
             0,
@@ -364,7 +388,6 @@
             0,
             1,
             0,
-            1,
             0,
             0
           ],
@@ -395,16 +418,14 @@
             0,
             0,
             0,
+            1,
             0,
             0,
             0,
             0,
             0,
             0,
-            0,
-            0,
-            0,
-            0,
+            1,
             0,
             0,
             0,
@@ -414,7 +435,7 @@
             0
           ]
         },
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -461,7 +482,7 @@
             0
           ]
         },
-        "register": 6
+        "register": 7
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1330,7 +1351,7 @@
             0
           ]
         },
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1344,10 +1365,10 @@
       "time": {
         "hooks": {
           "addBeforeMiddlewares": [
-            5
+            7
           ]
         },
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1360,7 +1381,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 55
+        "register": 52
       },
       "enableBy": "register",
       "type": "plugin",
@@ -1373,7 +1394,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 35
+        "register": 112
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1386,7 +1407,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 14
+        "register": 25
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1407,19 +1428,13 @@
           ],
           "modifyHTMLFavicon": [
             0,
+            1,
             0,
             0,
             0,
             0,
             0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
+            1,
             0,
             0,
             0,
@@ -1443,22 +1458,26 @@
         "hooks": {
           "onGenerateFiles": [
             1,
+            0,
+            0,
+            1,
+            3,
+            1,
+            0,
+            0,
+            3,
+            0,
             1,
             4,
+            0,
+            1,
+            1,
             1,
             1,
             0,
             0,
-            0,
-            0,
             1,
             1,
-            0,
-            1,
-            1,
-            0,
-            0,
-            2,
             0,
             1,
             0,
@@ -1467,10 +1486,13 @@
             1,
             1,
             1,
-            1,
-            1,
+            4,
+            0,
+            0,
             1,
             0,
+            0,
+            1,
             1,
             1,
             1,
@@ -1481,12 +1503,19 @@
             0,
             0,
             1,
-            0,
             1,
             0,
-            1
+            0,
+            2
           ],
           "addRuntimePlugin": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -1545,7 +1574,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 2
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1565,7 +1594,7 @@
             1
           ]
         },
-        "register": 24
+        "register": 51
       },
       "type": "plugin",
       "path": "/Users/didi/Desktop/yunwu-gen-image/node_modules/@umijs/preset-umi/dist/features/mock/mock.js",
@@ -1577,7 +1606,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1637,7 +1666,14 @@
             0,
             0,
             0,
-            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -1648,6 +1684,20 @@
             0
           ],
           "addEntryImports": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -1749,7 +1799,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 2
       },
       "enableBy": "config",
       "type": "plugin",
@@ -1763,52 +1813,59 @@
       "time": {
         "hooks": {
           "modifyConfig": [
-            1
+            0
           ],
           "onGenerateFiles": [
-            56,
-            16,
-            22,
-            15,
-            19,
+            55,
+            20,
+            7,
+            14,
+            18,
+            60,
+            10,
+            8,
             13,
-            12,
             14,
+            26,
             19,
             14,
-            12,
-            18,
-            72,
+            14,
             15,
-            21,
-            9,
-            23,
-            8,
-            24,
-            8,
-            16,
-            18,
-            22,
-            18,
-            11,
-            11,
-            11,
-            5,
-            17,
-            10,
-            10,
+            7,
             12,
+            18,
+            14,
+            13,
+            14,
+            26,
+            17,
+            9,
+            16,
+            9,
+            9,
+            6,
+            9,
+            21,
+            13,
             20,
             11,
-            17,
-            17,
+            10,
             9,
-            14,
-            15,
-            6,
+            11,
+            9,
             8,
+            29,
+            21,
+            7,
+            13,
+            9,
+            10,
+            12,
+            23,
+            12,
+            9,
             6,
-            12
+            19
           ],
           "addPolyfillImports": [
             0,
@@ -1869,6 +1926,20 @@
             0,
             0,
             0,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -1899,7 +1970,7 @@
             0
           ]
         },
-        "register": 1
+        "register": 3
       },
       "type": "plugin",
       "path": "/Users/didi/Desktop/yunwu-gen-image/node_modules/@umijs/preset-umi/dist/features/polyfill/polyfill.js",
@@ -1997,10 +2068,24 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ]
         },
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2014,7 +2099,14 @@
       "time": {
         "hooks": {
           "onGenerateFiles": [
-            75,
+            69,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -2059,7 +2151,7 @@
             0
           ]
         },
-        "register": 1
+        "register": 2
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2072,7 +2164,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2085,7 +2177,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2099,23 +2191,15 @@
       "time": {
         "hooks": {
           "onGenerateFiles": [
+            0,
+            0,
+            0,
+            0,
+            0,
             1,
-            1,
+            0,
             2,
             0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            0,
-            2,
-            1,
-            0,
-            1,
-            0,
-            0,
-            1,
             0,
             1,
             0,
@@ -2126,7 +2210,9 @@
             0,
             0,
             0,
-            1,
+            0,
+            0,
+            0,
             0,
             1,
             0,
@@ -2134,13 +2220,26 @@
             0,
             0,
             1,
-            0,
-            0,
-            0,
             1,
             0,
             0,
             0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
             1
           ],
           "addBeforeMiddlewares": [
@@ -2161,95 +2260,109 @@
       "time": {
         "hooks": {
           "onGenerateFiles": [
+            8,
+            4,
+            9,
+            2,
+            6,
+            1,
             7,
-            12,
+            1,
+            8,
+            2,
             7,
             2,
-            44,
-            41,
             6,
-            4,
-            10,
+            3,
+            6,
+            2,
+            6,
+            1,
+            5,
+            1,
+            8,
+            1,
+            9,
             2,
             8,
             1,
-            6,
+            10,
             1,
-            7,
+            34,
             2,
-            7,
+            8,
             1,
             9,
+            2,
+            10,
+            1,
+            5,
             2,
             16,
             1,
             6,
+            2,
+            7,
             1,
-            17,
+            6,
+            1,
+            5,
+            2,
+            7,
+            1,
+            7,
+            2,
+            7,
+            2,
+            7,
+            2,
+            6,
+            1,
+            5,
+            1,
+            5,
+            1,
+            7,
+            1,
+            6,
+            1,
+            7,
             3,
-            9,
+            6,
             1,
             5,
+            2,
+            9,
             1,
+            6,
+            1,
+            6,
+            1,
+            8,
+            2,
+            6,
+            1,
+            20,
             4,
-            1,
-            7,
-            1,
-            7,
-            1,
-            8,
+            5,
             2,
+            8,
+            1,
             5,
             1,
             9,
             2,
             7,
-            1,
-            8,
             2,
-            8,
-            2,
-            7,
-            2,
-            5,
+            6,
             1,
-            7,
-            1,
-            5,
-            1,
-            5,
-            1,
-            5,
-            1,
-            8,
-            1,
-            7,
-            2,
-            9,
-            1,
-            7,
-            2,
-            12,
-            1,
-            9,
-            2,
-            5,
-            1,
-            5,
-            1,
-            8,
-            1,
-            4,
-            1,
-            7,
-            2,
-            5,
-            1,
-            7,
-            1
+            6,
+            0,
+            11,
+            4
           ]
         },
-        "register": 5
+        "register": 7
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2262,7 +2375,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 2
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2275,7 +2388,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "type": "plugin",
       "path": "/Users/didi/Desktop/yunwu-gen-image/node_modules/@umijs/preset-umi/dist/features/routeProps/routeProps.js",
@@ -2287,7 +2400,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 3
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2301,49 +2414,56 @@
       "time": {
         "hooks": {
           "onGenerateFiles": [
-            257,
-            8,
+            225,
             11,
+            8,
+            4,
+            8,
+            32,
             5,
             7,
-            5,
             5,
             7,
             8,
+            6,
+            5,
+            5,
+            6,
+            4,
+            6,
+            7,
+            5,
+            9,
+            5,
+            7,
+            7,
+            7,
+            6,
             8,
-            6,
-            6,
-            29,
-            6,
-            4,
             5,
             6,
             5,
+            9,
+            7,
             6,
-            4,
-            6,
-            5,
             6,
             7,
-            4,
-            4,
-            6,
-            4,
-            4,
-            5,
-            5,
-            5,
+            8,
             5,
             6,
+            4,
+            4,
             5,
-            7,
+            6,
+            9,
+            6,
+            5,
+            5,
+            6,
             3,
             4,
-            5,
-            5,
-            6,
             4,
-            6
+            4
           ]
         },
         "register": 2
@@ -2360,10 +2480,10 @@
       "time": {
         "hooks": {
           "addBeforeBabelPresets": [
-            1
+            0
           ]
         },
-        "register": 2
+        "register": 3
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2376,7 +2496,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 4
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2389,7 +2509,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2402,7 +2522,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 4
+        "register": 59
       },
       "type": "plugin",
       "path": "/Users/didi/Desktop/yunwu-gen-image/node_modules/@umijs/preset-umi/dist/features/apiRoute/apiRoute.js",
@@ -2414,7 +2534,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 16
+        "register": 48
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2428,34 +2548,7 @@
       "time": {
         "hooks": {
           "onGenerateFiles": [
-            5,
-            1,
-            5,
-            9,
-            1,
-            0,
-            0,
-            0,
-            0,
-            1,
             2,
-            0,
-            3,
-            1,
-            1,
-            1,
-            1,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            1,
-            0,
-            0,
-            1,
-            0,
             1,
             0,
             1,
@@ -2463,6 +2556,22 @@
             1,
             0,
             1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
             0,
             1,
             0,
@@ -2470,10 +2579,28 @@
             0,
             1,
             0,
-            0
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            2
           ]
         },
-        "register": 3
+        "register": 1
       },
       "type": "plugin",
       "path": "/Users/didi/Desktop/yunwu-gen-image/node_modules/@umijs/preset-umi/dist/features/test/test.js",
@@ -2498,7 +2625,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 2
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2511,7 +2638,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2524,7 +2651,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 3
       },
       "type": "plugin",
       "path": "/Users/didi/Desktop/yunwu-gen-image/node_modules/@umijs/preset-umi/dist/features/webpack/webpack.js",
@@ -2553,7 +2680,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 5
       },
       "type": "plugin",
       "path": "/Users/didi/Desktop/yunwu-gen-image/node_modules/@umijs/preset-umi/dist/features/ui/ui.js",
@@ -2590,7 +2717,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 3
       },
       "type": "plugin",
       "path": "/Users/didi/Desktop/yunwu-gen-image/node_modules/@umijs/preset-umi/dist/features/hmrGuardian/hmrGuardian.js",
@@ -2603,20 +2730,14 @@
       "time": {
         "hooks": {
           "addHTMLHeadScripts": [
-            10,
+            25,
+            0,
+            0,
+            0,
+            0,
             0,
             1,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
+            1,
             0,
             0,
             0,
@@ -2625,7 +2746,7 @@
             0
           ]
         },
-        "register": 17
+        "register": 24
       },
       "type": "plugin",
       "path": "/Users/didi/Desktop/yunwu-gen-image/node_modules/@umijs/preset-umi/dist/features/routePreloadOnLoad/routePreloadOnLoad.js",
@@ -2637,7 +2758,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 1
       },
       "enableBy": "config",
       "type": "plugin",
@@ -2651,7 +2772,7 @@
       "time": {
         "hooks": {
           "modifyUniBundler": [
-            399
+            439
           ]
         },
         "register": 1
@@ -2680,7 +2801,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 24
+        "register": 27
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2694,10 +2815,10 @@
       "time": {
         "hooks": {
           "modifyAppData": [
-            8
+            7
           ]
         },
-        "register": 30
+        "register": 48
       },
       "type": "plugin",
       "path": "/Users/didi/Desktop/yunwu-gen-image/node_modules/@umijs/preset-umi/dist/commands/dev/dev.js",
@@ -2709,7 +2830,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2722,7 +2843,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2735,7 +2856,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2748,7 +2869,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2774,7 +2895,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 5
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2800,7 +2921,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 0
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2826,7 +2947,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2839,7 +2960,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2852,7 +2973,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 3
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2865,7 +2986,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2891,7 +3012,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2904,7 +3025,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2917,7 +3038,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2930,7 +3051,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2943,7 +3064,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 16
+        "register": 13
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2956,7 +3077,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register",
       "type": "plugin",
@@ -2969,7 +3090,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 2
       },
       "enableBy": "register",
       "type": "plugin",
@@ -3087,9 +3208,30 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "addRuntimePlugin": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -3177,50 +3319,64 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "onGenerateFiles": [
-            10,
-            2,
-            5,
-            13,
+            4,
             1,
             2,
             1,
             1,
-            2,
-            1,
-            1,
-            1,
-            2,
-            2,
-            0,
-            1,
-            1,
-            2,
-            2,
-            1,
-            1,
-            2,
-            1,
-            1,
-            1,
-            1,
-            2,
-            1,
-            1,
-            1,
-            1,
-            1,
-            0,
-            2,
             1,
             2,
             0,
             1,
             1,
             1,
+            2,
+            1,
+            1,
+            3,
             0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            2,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            2,
+            3,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
             1,
             1
           ],
@@ -3417,7 +3573,7 @@
       "parentId": "1",
       "id": "3",
       "absPath": "/dashboard",
-      "__content": "import React, { useState } from 'react';\nimport { Card, Upload, Button, Input, Space, message, Image, Select } from 'antd';\nimport {\n  CloudUploadOutlined,\n  DeleteOutlined,\n  GlobalOutlined,\n  PlayCircleOutlined,\n  UploadOutlined,\n  KeyOutlined,\n  BulbOutlined\n} from '@ant-design/icons';\n// @ts-ignore\nimport Papa from 'papaparse';\nimport './index.less';\n\nconst { TextArea } = Input;\n\nconst Dashboard: React.FC = () => {\n  const [fileList, setFileList] = useState<any[]>([]);\n  const [promptContent, setPromptContent] = useState('');\n  const [validShots, setValidShots] = useState<any[]>([]);\n  const [editingScene, setEditingScene] = useState<number | null>(null);\n  const [editingContent, setEditingContent] = useState<any>({});\n  const [apiKey, setApiKey] = useState<string>(() => {\n    // 从localStorage加载API密钥\n    return localStorage.getItem('apiKey') || '';\n  });\n  const [apiPlatform, setApiPlatform] = useState<string>(() => {\n    // 从localStorage加载API平台\n    return localStorage.getItem('apiPlatform') || '云雾';\n  });\n  const [model, setModel] = useState<string>(() => {\n    // 从localStorage加载模型\n    return localStorage.getItem('model') || 'Sora';\n  });\n  const [customStyle, setCustomStyle] = useState<string>(() => {\n    // 从localStorage加载自定义风格\n    return localStorage.getItem('customStyle') || '';\n  });\n\n  // 处理API密钥变化\n  const handleApiKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {\n    const newApiKey = e.target.value;\n    setApiKey(newApiKey);\n    // 保存到localStorage\n    localStorage.setItem('apiKey', newApiKey);\n  };\n\n  // 处理API平台变化\n  const handleApiPlatformChange = (value: string) => {\n    setApiPlatform(value);\n    // 保存到localStorage\n    localStorage.setItem('apiPlatform', value);\n  };\n\n  // 处理模型变化\n  const handleModelChange = (value: string) => {\n    setModel(value);\n    // 保存到localStorage\n    localStorage.setItem('model', value);\n  };\n\n  // 处理自定义风格变化\n  const handleCustomStyleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {\n    const newCustomStyle = e.target.value;\n    setCustomStyle(newCustomStyle);\n    // 保存到localStorage\n    localStorage.setItem('customStyle', newCustomStyle);\n  };\n\n  // 解析场景的提示词内容\n  const parseScenePrompt = (sceneData: any) => {\n    if (!sceneData) return null;\n    \n    const prompt = sceneData['分镜提示词'] || sceneData['提示词'] || sceneData['内容'] || sceneData['描述'] || '';\n    \n    // 尝试解析JSON格式的提示词\n    try {\n      const parsedPrompt = JSON.parse(prompt);\n      return parsedPrompt;\n    } catch (error) {\n      // 如果不是JSON格式，返回原始文本\n      return {\n        subject: {\n          characters: '',\n          expression: '',\n          action: prompt\n        },\n        environment: '',\n        time: '',\n        weather: '',\n        perspective: '',\n        shotType: ''\n      };\n    }\n  };\n\n  // 开始编辑场景\n  const startEditing = (sceneIndex: number) => {\n    const sceneData = validShots[sceneIndex];\n    const parsedPrompt = parseScenePrompt(sceneData);\n    setEditingScene(sceneIndex);\n    setEditingContent(parsedPrompt || {});\n  };\n\n  // 取消编辑\n  const cancelEditing = () => {\n    setEditingScene(null);\n    setEditingContent({});\n  };\n\n  // 保存编辑\n  const saveEditing = () => {\n    if (editingScene !== null) {\n      const updatedShots = [...validShots];\n      const promptText = JSON.stringify(editingContent);\n      updatedShots[editingScene] = {\n        ...updatedShots[editingScene],\n        '分镜提示词': promptText,\n        '提示词': promptText,\n        '内容': promptText,\n        '描述': promptText\n      };\n      setValidShots(updatedShots);\n      setEditingScene(null);\n      setEditingContent({});\n      message.success('场景内容已保存');\n    }\n  };\n\n  // 更新编辑内容\n  const updateEditingContent = (field: string, value: string) => {\n    setEditingContent((prev: any) => ({\n      ...prev,\n      [field]: value\n    }));\n  };\n\n  // 更新主体内容\n  const updateSubjectContent = (field: string, value: string) => {\n    setEditingContent((prev: any) => ({\n      ...prev,\n      subject: {\n        ...prev.subject,\n        [field]: value\n      }\n    }));\n  };\n\n  // 参考图上传配置\n  const uploadProps = {\n    name: 'file',\n    multiple: true,\n    fileList,\n    beforeUpload: (file: any) => {\n      const isImage = file.type.startsWith('image/');\n      if (!isImage) {\n        message.error('只能上传图片文件!');\n        return false;\n      }\n      const isLt10M = file.size / 1024 / 1024 < 10;\n      if (!isLt10M) {\n        message.error('图片大小不能超过 10MB!');\n        return false;\n      }\n      return false; // 阻止自动上传\n    },\n    onChange: (info: any) => {\n      setFileList(info.fileList.slice(-20)); // 最多20张\n    },\n    onDrop: (e: any) => {\n      console.log('Dropped files', e.dataTransfer.files);\n    },\n    onRemove: (file: any) => {\n      const newFileList = fileList.filter(item => item.uid !== file.uid);\n      setFileList(newFileList);\n    },\n  };\n\n\n  // 删除图片\n  const handleRemoveImage = (uid: string) => {\n    const newFileList = fileList.filter(item => item.uid !== uid);\n    setFileList(newFileList);\n  };\n\n\n  // 使用PapaParse解析CSV内容\n  const parseCSV = (csvText: string) => {\n    console.log('CSV原始内容:', csvText);\n    \n    const result = Papa.parse(csvText, {\n      header: true,\n      skipEmptyLines: true,\n      encoding: 'UTF-8',\n      complete: (results: any) => {\n        console.log('PapaParse解析完成:', results);\n      },\n      error: (error: any) => {\n        console.error('PapaParse解析错误:', error);\n      }\n    });\n    \n    console.log('解析结果:', result.data);\n    return result.data;\n  };\n\n  // 处理文件上传\n  const handleFileUpload = async (file: any) => {\n    // 检查是否为CSV文件\n    if (file.name.toLowerCase().endsWith('.csv')) {\n      try {\n        // 读取文件为ArrayBuffer\n        const arrayBuffer = await file.arrayBuffer();\n        const bytes = new Uint8Array(arrayBuffer);\n        \n        console.log('文件字节长度:', bytes.length);\n        \n        // 尝试不同编码\n        let decodedText = '';\n        let encoding = 'UTF-8';\n        \n        // 首先尝试UTF-8\n        try {\n          const utf8Decoder = new TextDecoder('utf-8');\n          decodedText = utf8Decoder.decode(bytes);\n          console.log('UTF-8解码结果:', decodedText.substring(0, 200));\n          \n          // 检查是否有乱码\n          if (decodedText.includes('') || decodedText.includes('')) {\n            throw new Error('UTF-8解码出现乱码');\n          }\n        } catch (error) {\n          console.log('UTF-8解码失败，尝试GBK编码');\n          \n          // 尝试GBK编码\n          try {\n            const gbkDecoder = new TextDecoder('gbk');\n            decodedText = gbkDecoder.decode(bytes);\n            encoding = 'GBK';\n            console.log('GBK解码结果:', decodedText.substring(0, 200));\n          } catch (gbkError) {\n            console.log('GBK解码失败，尝试GB2312编码');\n            \n            // 尝试GB2312编码\n            const gb2312Decoder = new TextDecoder('gb2312');\n            decodedText = gb2312Decoder.decode(bytes);\n            encoding = 'GB2312';\n            console.log('GB2312解码结果:', decodedText.substring(0, 200));\n          }\n        }\n        \n        console.log(`使用${encoding}编码成功，开始解析CSV...`);\n        \n        // 使用PapaParse解析CSV文本\n        Papa.parse(decodedText, {\n          header: true,\n          skipEmptyLines: true,\n          complete: (results: any) => {\n            console.log('PapaParse解析完成:', results);\n            const csvData = results.data;\n            \n            // 显示所有列名，帮助调试\n            if (csvData.length > 0) {\n              const headers = Object.keys(csvData[0]);\n              console.log('CSV列名:', headers);\n            }\n            \n            // 查找包含分镜提示词的行\n            const validShots = csvData.filter((row: any) => {\n              // 尝试不同的列名\n              const shotNumber = row['分镜数'] || row['分镜'] || row['序号'] || row['编号'];\n              const prompt = row['分镜提示词'] || row['提示词'] || row['内容'] || row['描述'];\n              \n              const hasShotNumber = shotNumber && shotNumber.toString().trim();\n              const hasPrompt = prompt && prompt.toString().trim();\n              \n              console.log('检查行:', row, 'hasShotNumber:', hasShotNumber, 'hasPrompt:', hasPrompt);\n              return hasShotNumber && hasPrompt;\n            });\n            \n            console.log('有效的分镜数据:', validShots);\n            \n            if (validShots.length === 0) {\n              message.warning('未找到有效的分镜提示词数据，请检查CSV文件格式');\n              \n              // 显示调试信息\n              const debugInfo = `CSV调试信息:\\n\\n使用编码: ${encoding}\\n\\n原始内容:\\n${decodedText.substring(0, 500)}...\\n\\n解析后的数据:\\n${JSON.stringify(csvData.slice(0, 3), null, 2)}`;\n              setPromptContent(debugInfo);\n              return;\n            }\n            \n            // 存储validShots到状态中\n            setValidShots(validShots);\n            \n            const shotPrompts = validShots\n              .map((row: any) => {\n                const shotNumber = row['分镜数'] || row['分镜'] || row['序号'] || row['编号'] || '';\n                const prompt = row['分镜提示词'] || row['提示词'] || row['内容'] || row['描述'] || '';\n                return `分镜${shotNumber}:\\n${prompt}`;\n              })\n              .join('\\n\\n' + '='.repeat(50) + '\\n\\n');\n            \n            setPromptContent(shotPrompts);\n            message.success(`成功解析CSV文件，提取了${validShots.length}条分镜提示词`);\n          },\n          error: (error: any) => {\n            console.error('PapaParse解析错误:', error);\n            message.error('CSV文件解析失败，请检查文件格式');\n          }\n        });\n      } catch (error) {\n        console.error('文件读取失败:', error);\n        message.error('文件读取失败，请重试');\n      }\n    } else {\n      // JSON文件使用FileReader\n      const reader = new FileReader();\n      reader.onload = (e) => {\n        const content = e.target?.result as string;\n        setPromptContent(content);\n        message.success('文件内容已加载到文本区域');\n      };\n      reader.readAsText(file);\n    }\n    \n    return false; // 阻止自动上传\n  };\n\n  // CSV/JSON 文件上传配置\n  const fileUploadProps = {\n    name: 'file',\n    accept: '.csv,.json',\n    beforeUpload: handleFileUpload,\n    showUploadList: false,\n  };\n\n  return (\n    <div className=\"dashboard-page\">\n      <div className=\"page-layout\">\n        {/* 左侧列 */}\n        <div className=\"left-column\">\n          {/* 基本信息配置 */}\n          <Card \n            title={\n              <span>\n                <KeyOutlined style={{ marginRight: 8, color: '#722ed1' }} />\n                基本配置\n              </span>\n            }\n            extra={\n              (apiKey.trim() || apiPlatform || model) ? (\n                <span className=\"auto-save-hint\">✅ 已自动保存</span>\n              ) : null\n            }\n            className=\"basic-config-card\"\n          >\n            <div className=\"config-form\">\n              <div className=\"config-item\">\n                <label className=\"config-label\">API 密钥</label>\n                <Input\n                  value={apiKey}\n                  onChange={handleApiKeyChange}\n                  placeholder=\"请输入API密钥...\"\n                  className=\"config-input\"\n                  autoComplete=\"off\"\n                  autoCorrect=\"off\"\n                  autoCapitalize=\"off\"\n                  spellCheck=\"false\"\n                />\n              </div>\n              \n              <div className=\"config-item\">\n                <label className=\"config-label\">API 平台</label>\n                <Select\n                  value={apiPlatform}\n                  onChange={handleApiPlatformChange}\n                  className=\"config-select\"\n                  options={[\n                    { value: '云雾', label: '云雾' }\n                  ]}\n                />\n              </div>\n              \n              <div className=\"config-item\">\n                <label className=\"config-label\">模型</label>\n                <Select\n                  value={model}\n                  onChange={handleModelChange}\n                  className=\"config-select\"\n                  options={[\n                    { value: 'Sora', label: 'Sora' },\n                    { value: 'Nano Banana', label: 'Nano Banana' },\n                    { value: '即梦4.0', label: '即梦4.0' }\n                  ]}\n                />\n              </div>\n            </div>\n          </Card>\n\n          {/* 自定义风格配置 */}\n          <Card \n            title={\n              <span>\n                <BulbOutlined style={{ marginRight: 8, color: '#722ed1' }} />\n                自定义风格\n              </span>\n            }\n            extra={\n              customStyle.trim() ? (\n                <span className=\"auto-save-hint\">✅ 已自动保存</span>\n              ) : null\n            }\n            className=\"custom-style-card\"\n          >\n            <TextArea\n              value={customStyle}\n              onChange={handleCustomStyleChange}\n              placeholder=\"请输入自定义风格描述，例如：动漫风格、写实风格、油画风格等...\"\n              rows={4}\n              className=\"custom-style-textarea\"\n            />\n          </Card>\n\n          {/* 参考图上传 */}\n          <Card \n            title={\n              <span>\n                <CloudUploadOutlined style={{ marginRight: 8, color: '#722ed1' }} />\n                参考图上传\n              </span>\n            }\n            className=\"upload-card\"\n          >\n            <Upload.Dragger {...uploadProps} className=\"upload-dragger\">\n              <p className=\"ant-upload-drag-icon\">\n                <CloudUploadOutlined style={{ fontSize: 48, color: '#722ed1' }} />\n              </p>\n              <p className=\"ant-upload-text\">拖拽图片到此处,或点击选择</p>\n              <p className=\"ant-upload-hint\">\n                支持 JPG、PNG、GIF 格式，单个文件不超过 10MB\n              </p>\n            </Upload.Dragger>\n            <div className=\"upload-info\">\n              {fileList.length}/20 images\n            </div>\n            \n            {/* 图片预览区域 */}\n            {fileList.length > 0 && (\n              <div className=\"image-preview-section\">\n                <div className=\"preview-title\">已上传图片</div>\n                <div className=\"image-grid\">\n                  {fileList.map((file) => (\n                    <div key={file.uid} className=\"image-item\">\n                      <Image\n                        src={file.thumbUrl || URL.createObjectURL(file.originFileObj)}\n                        alt={file.name}\n                        className=\"preview-image\"\n                        preview={{\n                          mask: <div className=\"preview-mask\">预览</div>\n                        }}\n                      />\n                      <Button\n                        type=\"text\"\n                        danger\n                        icon={<DeleteOutlined />}\n                        className=\"delete-btn\"\n                        onClick={() => handleRemoveImage(file.uid)}\n                      />\n                    </div>\n                  ))}\n                </div>\n              </div>\n            )}\n          </Card>\n\n          \n           {/* 场景管理 */}\n           <Card \n             title={\n               <span>\n                 <GlobalOutlined style={{ marginRight: 8, color: '#722ed1' }} />\n                 场景管理\n               </span>\n             }\n             extra={\n               <Space>\n                 <Upload {...fileUploadProps}>\n                   <Button \n                     type=\"default\" \n                     icon={<UploadOutlined />}\n                   >\n                     JSON/CSV\n                   </Button>\n                 </Upload>\n                 <Button type=\"primary\" icon={<PlayCircleOutlined />}>全部生成</Button>\n               </Space>\n             }\n             className=\"scene-management-card\"\n           >\n             <div className=\"scene-content-layout\">\n               {validShots.length > 0 ? (\n                 <div className=\"scenes-list\">\n                   {validShots.map((scene, index) => {\n                     const parsedPrompt = parseScenePrompt(scene);\n                     const shotNumber = scene['分镜数'] || scene['分镜'] || scene['序号'] || scene['编号'] || (index + 1);\n                     \n                     return (\n                       <div key={index} className=\"scene-item\">\n                         {/* 场景标题 */}\n                         <div className=\"scene-header\">\n                           <div className=\"scene-title\">场景 {shotNumber}</div>\n                           <div className=\"scene-actions\">\n                             {editingScene === index ? (\n                               <div className=\"edit-buttons\">\n                                 <Button size=\"small\" onClick={saveEditing} type=\"primary\">保存</Button>\n                                 <Button size=\"small\" onClick={cancelEditing}>取消</Button>\n                               </div>\n                             ) : (\n                               <div className=\"action-buttons\">\n                                 <Button size=\"small\" onClick={() => startEditing(index)}>编辑</Button>\n                                 <Button type=\"primary\" icon={<PlayCircleOutlined />} size=\"small\">\n                                   单个生成\n                                 </Button>\n                               </div>\n                             )}\n                           </div>\n                         </div>\n\n                         {/* 左右两栏布局 */}\n                         <div className=\"scene-content\">\n                           {/* 左栏：Image Prompt */}\n                           <div className=\"scene-left-panel\">\n                             <div className=\"panel-content\">\n                               <div className=\"panel-title\">\n                                 <span>Image Prompt</span>\n                               </div>\n                               {editingScene === index ? (\n                                 <div className=\"image-prompt-section\">\n                                   {/* 编辑模式 */}\n                                   <div className=\"prompt-section\">\n                                     <div className=\"field-item\">\n                                       <TextArea\n                                        style={{ height: 300 }}\n                                        value={editingContent.subject?.action || ''}\n                                        onChange={(e) => updateSubjectContent('action', e.target.value)}\n                                        placeholder=\"输入内容\"\n                                       />\n                                     </div>\n                                   </div> \n                                 </div>\n                               ) : (\n                                 <div className=\"image-prompt-section\">\n                                   {/* 显示模式 */}\n                                   {parsedPrompt ? (\n                                     <>\n                                       {/* 主体部分 */}\n                                       {parsedPrompt.subject && (\n                                         <div className=\"prompt-section\">\n                                           {parsedPrompt.subject.action && (\n                                             <div className=\"field-item\">\n                                               <div className=\"field-value action-text\">{parsedPrompt.subject.action}</div>\n                                             </div>\n                                           )}\n                                         </div>\n                                       )}               \n                                     </>\n                                   ) : (\n                                     <div className=\"no-scene-message\">暂无场景数据</div>\n                                   )}\n                                 </div>\n                               )}\n                             </div>\n                           </div>\n\n                           {/* 右栏：生成的图片 */}\n                           <div className=\"scene-right-panel\">\n                             <div className=\"panel-content\">\n                               <div className=\"panel-title\">\n                                 <span>生成的图片</span>\n                               </div>\n                               <div className=\"image-placeholder\">\n                                 <div className=\"image-number\">{index + 1}</div>\n                                 <div className=\"waiting-text\">Waiting...</div>\n                               </div>\n                             </div>\n                           </div>\n                         </div>\n                       </div>\n                     );\n                   })}\n                 </div>\n               ) : (\n                 <div className=\"no-scene-message\">暂无场景</div>\n               )}\n             </div>\n           </Card>\n        </div>\n      </div>\n    </div>\n  );\n};\n\nexport default Dashboard;\n\n\n",
+      "__content": "import React, { useState } from 'react';\nimport { Card, Upload, Button, Input, Space, message, Image, Select } from 'antd';\nimport {\n  CloudUploadOutlined,\n  DeleteOutlined,\n  GlobalOutlined,\n  PlayCircleOutlined,\n  UploadOutlined,\n  KeyOutlined,\n  BulbOutlined,\n  SettingOutlined\n} from '@ant-design/icons';\n// @ts-ignore\nimport Papa from 'papaparse';\nimport './index.less';\n\nconst { TextArea } = Input;\n\nconst Dashboard: React.FC = () => {\n  const [fileList, setFileList] = useState<any[]>([]);\n  const [promptContent, setPromptContent] = useState('');\n  const [validShots, setValidShots] = useState<any[]>([]);\n  const [editingScene, setEditingScene] = useState<number | null>(null);\n  const [editingContent, setEditingContent] = useState<any>({});\n  const [apiKey, setApiKey] = useState<string>(() => {\n    // 从localStorage加载API密钥\n    return localStorage.getItem('apiKey') || '';\n  });\n  const [apiPlatform, setApiPlatform] = useState<string>(() => {\n    // 从localStorage加载API平台\n    return localStorage.getItem('apiPlatform') || '云雾';\n  });\n  const [model, setModel] = useState<string>(() => {\n    // 从localStorage加载模型\n    return localStorage.getItem('model') || 'Sora';\n  });\n  const [customStyle, setCustomStyle] = useState<string>(() => {\n    // 从localStorage加载自定义风格\n    return localStorage.getItem('customStyle') || '';\n  });\n\n  // 处理API密钥变化\n  const handleApiKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {\n    const newApiKey = e.target.value;\n    setApiKey(newApiKey);\n    // 保存到localStorage\n    localStorage.setItem('apiKey', newApiKey);\n  };\n\n  // 处理API平台变化\n  const handleApiPlatformChange = (value: string) => {\n    setApiPlatform(value);\n    // 保存到localStorage\n    localStorage.setItem('apiPlatform', value);\n  };\n\n  // 处理模型变化\n  const handleModelChange = (value: string) => {\n    setModel(value);\n    // 保存到localStorage\n    localStorage.setItem('model', value);\n  };\n\n  // 处理自定义风格变化\n  const handleCustomStyleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {\n    const newCustomStyle = e.target.value;\n    setCustomStyle(newCustomStyle);\n    // 保存到localStorage\n    localStorage.setItem('customStyle', newCustomStyle);\n  };\n\n  // 解析场景的提示词内容\n  const parseScenePrompt = (sceneData: any) => {\n    if (!sceneData) return null;\n    \n    const prompt = sceneData['分镜提示词'] || sceneData['提示词'] || sceneData['内容'] || sceneData['描述'] || '';\n    \n    // 尝试解析JSON格式的提示词\n    try {\n      const parsedPrompt = JSON.parse(prompt);\n      return parsedPrompt;\n    } catch (error) {\n      // 如果不是JSON格式，返回原始文本\n      return {\n        subject: {\n          characters: '',\n          expression: '',\n          action: prompt\n        },\n        environment: '',\n        time: '',\n        weather: '',\n        perspective: '',\n        shotType: ''\n      };\n    }\n  };\n\n  // 开始编辑场景\n  const startEditing = (sceneIndex: number) => {\n    const sceneData = validShots[sceneIndex];\n    const parsedPrompt = parseScenePrompt(sceneData);\n    setEditingScene(sceneIndex);\n    setEditingContent(parsedPrompt || {});\n  };\n\n  // 取消编辑\n  const cancelEditing = () => {\n    setEditingScene(null);\n    setEditingContent({});\n  };\n\n  // 保存编辑\n  const saveEditing = () => {\n    if (editingScene !== null) {\n      const updatedShots = [...validShots];\n      const promptText = JSON.stringify(editingContent);\n      updatedShots[editingScene] = {\n        ...updatedShots[editingScene],\n        '分镜提示词': promptText,\n        '提示词': promptText,\n        '内容': promptText,\n        '描述': promptText\n      };\n      setValidShots(updatedShots);\n      setEditingScene(null);\n      setEditingContent({});\n      message.success('场景内容已保存');\n    }\n  };\n\n  // 更新编辑内容\n  const updateEditingContent = (field: string, value: string) => {\n    setEditingContent((prev: any) => ({\n      ...prev,\n      [field]: value\n    }));\n  };\n\n  // 更新主体内容\n  const updateSubjectContent = (field: string, value: string) => {\n    setEditingContent((prev: any) => ({\n      ...prev,\n      subject: {\n        ...prev.subject,\n        [field]: value\n      }\n    }));\n  };\n\n  // 参考图上传配置\n  const uploadProps = {\n    name: 'file',\n    multiple: true,\n    fileList,\n    beforeUpload: (file: any) => {\n      const isImage = file.type.startsWith('image/');\n      if (!isImage) {\n        message.error('只能上传图片文件!');\n        return false;\n      }\n      const isLt10M = file.size / 1024 / 1024 < 10;\n      if (!isLt10M) {\n        message.error('图片大小不能超过 10MB!');\n        return false;\n      }\n      return false; // 阻止自动上传\n    },\n    onChange: (info: any) => {\n      setFileList(info.fileList.slice(-20)); // 最多20张\n    },\n    onDrop: (e: any) => {\n      console.log('Dropped files', e.dataTransfer.files);\n    },\n    onRemove: (file: any) => {\n      const newFileList = fileList.filter(item => item.uid !== file.uid);\n      setFileList(newFileList);\n    },\n  };\n\n\n  // 删除图片\n  const handleRemoveImage = (uid: string) => {\n    const newFileList = fileList.filter(item => item.uid !== uid);\n    setFileList(newFileList);\n  };\n\n\n  // 使用PapaParse解析CSV内容\n  const parseCSV = (csvText: string) => {\n    console.log('CSV原始内容:', csvText);\n    \n    const result = Papa.parse(csvText, {\n      header: true,\n      skipEmptyLines: true,\n      encoding: 'UTF-8',\n      complete: (results: any) => {\n        console.log('PapaParse解析完成:', results);\n      },\n      error: (error: any) => {\n        console.error('PapaParse解析错误:', error);\n      }\n    });\n    \n    console.log('解析结果:', result.data);\n    return result.data;\n  };\n\n  // 处理文件上传\n  const handleFileUpload = async (file: any) => {\n    // 检查是否为CSV文件\n    if (file.name.toLowerCase().endsWith('.csv')) {\n      try {\n        // 读取文件为ArrayBuffer\n        const arrayBuffer = await file.arrayBuffer();\n        const bytes = new Uint8Array(arrayBuffer);\n        \n        console.log('文件字节长度:', bytes.length);\n        \n        // 尝试不同编码\n        let decodedText = '';\n        let encoding = 'UTF-8';\n        \n        // 首先尝试UTF-8\n        try {\n          const utf8Decoder = new TextDecoder('utf-8');\n          decodedText = utf8Decoder.decode(bytes);\n          console.log('UTF-8解码结果:', decodedText.substring(0, 200));\n          \n          // 检查是否有乱码\n          if (decodedText.includes('') || decodedText.includes('')) {\n            throw new Error('UTF-8解码出现乱码');\n          }\n        } catch (error) {\n          console.log('UTF-8解码失败，尝试GBK编码');\n          \n          // 尝试GBK编码\n          try {\n            const gbkDecoder = new TextDecoder('gbk');\n            decodedText = gbkDecoder.decode(bytes);\n            encoding = 'GBK';\n            console.log('GBK解码结果:', decodedText.substring(0, 200));\n          } catch (gbkError) {\n            console.log('GBK解码失败，尝试GB2312编码');\n            \n            // 尝试GB2312编码\n            const gb2312Decoder = new TextDecoder('gb2312');\n            decodedText = gb2312Decoder.decode(bytes);\n            encoding = 'GB2312';\n            console.log('GB2312解码结果:', decodedText.substring(0, 200));\n          }\n        }\n        \n        console.log(`使用${encoding}编码成功，开始解析CSV...`);\n        \n        // 使用PapaParse解析CSV文本\n        Papa.parse(decodedText, {\n          header: true,\n          skipEmptyLines: true,\n          complete: (results: any) => {\n            console.log('PapaParse解析完成:', results);\n            const csvData = results.data;\n            \n            // 显示所有列名，帮助调试\n            if (csvData.length > 0) {\n              const headers = Object.keys(csvData[0]);\n              console.log('CSV列名:', headers);\n            }\n            \n            // 查找包含分镜提示词的行\n            const validShots = csvData.filter((row: any) => {\n              // 尝试不同的列名\n              const shotNumber = row['分镜数'] || row['分镜'] || row['序号'] || row['编号'];\n              const prompt = row['分镜提示词'] || row['提示词'] || row['内容'] || row['描述'];\n              \n              const hasShotNumber = shotNumber && shotNumber.toString().trim();\n              const hasPrompt = prompt && prompt.toString().trim();\n              \n              console.log('检查行:', row, 'hasShotNumber:', hasShotNumber, 'hasPrompt:', hasPrompt);\n              return hasShotNumber && hasPrompt;\n            });\n            \n            console.log('有效的分镜数据:', validShots);\n            \n            if (validShots.length === 0) {\n              message.warning('未找到有效的分镜提示词数据，请检查CSV文件格式');\n              \n              // 显示调试信息\n              const debugInfo = `CSV调试信息:\\n\\n使用编码: ${encoding}\\n\\n原始内容:\\n${decodedText.substring(0, 500)}...\\n\\n解析后的数据:\\n${JSON.stringify(csvData.slice(0, 3), null, 2)}`;\n              setPromptContent(debugInfo);\n              return;\n            }\n            \n            // 存储validShots到状态中\n            setValidShots(validShots);\n            \n            const shotPrompts = validShots\n              .map((row: any) => {\n                const shotNumber = row['分镜数'] || row['分镜'] || row['序号'] || row['编号'] || '';\n                const prompt = row['分镜提示词'] || row['提示词'] || row['内容'] || row['描述'] || '';\n                return `分镜${shotNumber}:\\n${prompt}`;\n              })\n              .join('\\n\\n' + '='.repeat(50) + '\\n\\n');\n            \n            setPromptContent(shotPrompts);\n            message.success(`成功解析CSV文件，提取了${validShots.length}条分镜提示词`);\n          },\n          error: (error: any) => {\n            console.error('PapaParse解析错误:', error);\n            message.error('CSV文件解析失败，请检查文件格式');\n          }\n        });\n      } catch (error) {\n        console.error('文件读取失败:', error);\n        message.error('文件读取失败，请重试');\n      }\n    } else {\n      // JSON文件使用FileReader\n      const reader = new FileReader();\n      reader.onload = (e) => {\n        const content = e.target?.result as string;\n        setPromptContent(content);\n        message.success('文件内容已加载到文本区域');\n      };\n      reader.readAsText(file);\n    }\n    \n    return false; // 阻止自动上传\n  };\n\n  // CSV/JSON 文件上传配置\n  const fileUploadProps = {\n    name: 'file',\n    accept: '.csv,.json',\n    beforeUpload: handleFileUpload,\n    showUploadList: false,\n  };\n\n  return (\n    <div className=\"dashboard-page\">\n      <div className=\"page-layout\">\n        {/* 左侧列 */}\n        <div className=\"left-column\">\n          {/* 基本信息配置 */}\n          <Card \n            title={\n              <span>\n                <SettingOutlined style={{ marginRight: 8, color: '#722ed1' }} />\n                基本配置\n              </span>\n            }\n            extra={\n              (apiKey.trim() || apiPlatform || model) ? (\n                <span className=\"auto-save-hint\">✅ 已自动保存</span>\n              ) : null\n            }\n            className=\"basic-config-card\"\n          >\n            <div className=\"config-form\">\n              <div className=\"config-item\">\n                <label className=\"config-label\">API 密钥</label>\n                <Input\n                  value={apiKey}\n                  onChange={handleApiKeyChange}\n                  placeholder=\"请输入API密钥...\"\n                  className=\"config-input\"\n                  autoComplete=\"off\"\n                  autoCorrect=\"off\"\n                  autoCapitalize=\"off\"\n                  spellCheck=\"false\"\n                />\n              </div>\n              \n              <div className=\"config-item\">\n                <label className=\"config-label\">API 平台</label>\n                <Select\n                  value={apiPlatform}\n                  onChange={handleApiPlatformChange}\n                  className=\"config-select\"\n                  options={[\n                    { value: '云雾', label: '云雾' }\n                  ]}\n                />\n              </div>\n              \n              <div className=\"config-item\">\n                <label className=\"config-label\">模型</label>\n                <Select\n                  value={model}\n                  onChange={handleModelChange}\n                  className=\"config-select\"\n                  options={[\n                    { value: 'Sora', label: 'Sora' },\n                    { value: 'Nano Banana', label: 'Nano Banana' },\n                    { value: '即梦4.0', label: '即梦4.0' }\n                  ]}\n                />\n              </div>\n            </div>\n          </Card>\n\n          {/* 自定义风格配置 */}\n          <Card \n            title={\n              <span>\n                <BulbOutlined style={{ marginRight: 8, color: '#722ed1' }} />\n                自定义风格\n              </span>\n            }\n            extra={\n              customStyle.trim() ? (\n                <span className=\"auto-save-hint\">✅ 已自动保存</span>\n              ) : null\n            }\n            className=\"custom-style-card\"\n          >\n            <TextArea\n              value={customStyle}\n              onChange={handleCustomStyleChange}\n              placeholder=\"请输入自定义风格描述，例如：动漫风格、写实风格、油画风格等...\"\n              rows={4}\n              className=\"custom-style-textarea\"\n            />\n          </Card>\n\n        </div>\n\n        {/* 右侧列 - 参考图上传和场景管理 */}\n        <div className=\"right-column\">\n          {/* 参考图上传 */}\n          <Card \n            title={\n              <span>\n                <CloudUploadOutlined style={{ marginRight: 8, color: '#722ed1' }} />\n                参考图上传\n              </span>\n            }\n            className=\"upload-card\"\n          >\n            <Upload.Dragger {...uploadProps} className=\"upload-dragger\">\n              <p className=\"ant-upload-drag-icon\">\n                <CloudUploadOutlined style={{ fontSize: 48, color: '#722ed1' }} />\n              </p>\n              <p className=\"ant-upload-text\">拖拽图片到此处,或点击选择</p>\n              <p className=\"ant-upload-hint\">\n                支持 JPG、PNG、GIF 格式，单个文件不超过 10MB\n              </p>\n            </Upload.Dragger>\n            <div className=\"upload-info\">\n              {fileList.length}/20 images\n            </div>\n            \n            {/* 图片预览区域 */}\n            {fileList.length > 0 && (\n              <div className=\"image-preview-section\">\n                <div className=\"preview-title\">已上传图片</div>\n                <div className=\"image-grid\">\n                  {fileList.map((file) => (\n                    <div key={file.uid} className=\"image-item\">\n                      <Image\n                        src={file.thumbUrl || URL.createObjectURL(file.originFileObj)}\n                        alt={file.name}\n                        className=\"preview-image\"\n                        preview={{\n                          mask: <div className=\"preview-mask\">预览</div>\n                        }}\n                      />\n                      <Button\n                        type=\"text\"\n                        danger\n                        icon={<DeleteOutlined />}\n                        className=\"delete-btn\"\n                        onClick={() => handleRemoveImage(file.uid)}\n                      />\n                    </div>\n                  ))}\n                </div>\n              </div>\n            )}\n          </Card>\n          {/* 场景管理 */}\n          <Card \n            title={\n              <span>\n                <GlobalOutlined style={{ marginRight: 8, color: '#722ed1' }} />\n                场景管理\n              </span>\n            }\n            extra={\n              <Space>\n                <Upload {...fileUploadProps}>\n                  <Button \n                    type=\"default\" \n                    icon={<UploadOutlined />}\n                  >\n                    JSON/CSV\n                  </Button>\n                </Upload>\n                <Button type=\"primary\" icon={<PlayCircleOutlined />}>全部生成</Button>\n              </Space>\n            }\n            className=\"scene-management-card\"\n          >\n            <div className=\"scene-content-layout\">\n              {validShots.length > 0 ? (\n                <div className=\"scenes-list\">\n                  {validShots.map((scene, index) => {\n                    const parsedPrompt = parseScenePrompt(scene);\n                    const shotNumber = scene['分镜数'] || scene['分镜'] || scene['序号'] || scene['编号'] || (index + 1);\n                    \n                    return (\n                      <div key={index} className=\"scene-item\">\n                        {/* 场景标题 */}\n                        <div className=\"scene-header\">\n                          <div className=\"scene-title\">场景 {shotNumber}</div>\n                          <div className=\"scene-actions\">\n                            {editingScene === index ? (\n                              <div className=\"edit-buttons\">\n                                <Button size=\"small\" onClick={saveEditing} type=\"primary\">保存</Button>\n                                <Button size=\"small\" onClick={cancelEditing}>取消</Button>\n                              </div>\n                            ) : (\n                              <div className=\"action-buttons\">\n                                <Button size=\"small\" onClick={() => startEditing(index)}>编辑</Button>\n                                <Button type=\"primary\" icon={<PlayCircleOutlined />} size=\"small\">\n                                  单个生成\n                                </Button>\n                              </div>\n                            )}\n                          </div>\n                        </div>\n\n                        {/* 左右两栏布局 */}\n                        <div className=\"scene-content\">\n                          {/* 左栏：Image Prompt */}\n                          <div className=\"scene-left-panel\">\n                            <div className=\"panel-content\">\n                              <div className=\"panel-title\">\n                                <span>Image Prompt</span>\n                              </div>\n                              {editingScene === index ? (\n                                <div className=\"image-prompt-section\">\n                                  {/* 编辑模式 */}\n                                  <div className=\"prompt-section\">\n                                    <div className=\"field-item\">\n                                      <TextArea\n                                       style={{ height: 360 }}\n                                       value={editingContent.subject?.action || ''}\n                                       onChange={(e) => updateSubjectContent('action', e.target.value)}\n                                       placeholder=\"输入内容\"\n                                      />\n                                    </div>\n                                  </div> \n                                </div>\n                              ) : (\n                                <div className=\"image-prompt-section\">\n                                  {/* 显示模式 */}\n                                  {parsedPrompt ? (\n                                    <>\n                                      {/* 主体部分 */}\n                                      {parsedPrompt.subject && (\n                                        <div className=\"prompt-section\">\n                                          {parsedPrompt.subject.action && (\n                                            <div className=\"field-item\">\n                                              <div className=\"field-value action-text\">{parsedPrompt.subject.action}</div>\n                                            </div>\n                                          )}\n                                        </div>\n                                      )}               \n                                    </>\n                                  ) : (\n                                    <div className=\"no-scene-message\">暂无场景数据</div>\n                                  )}\n                                </div>\n                              )}\n                            </div>\n                          </div>\n\n                          {/* 右栏：生成的图片 */}\n                          <div className=\"scene-right-panel\">\n                            <div className=\"panel-content\">\n                              <div className=\"panel-title\">\n                                <span>生成的图片</span>\n                              </div>\n                              <div className=\"image-placeholder\">\n                                <div className=\"image-number\">{index + 1}</div>\n                                <div className=\"waiting-text\">Waiting...</div>\n                              </div>\n                            </div>\n                          </div>\n                        </div>\n                      </div>\n                    );\n                  })}\n                </div>\n              ) : (\n                <div className=\"no-scene-message\">暂无场景</div>\n              )}\n            </div>\n          </Card>\n        </div>\n      </div>\n    </div>\n  );\n};\n\nexport default Dashboard;\n\n\n",
       "__isJSFile": true,
       "__absFile": "/Users/didi/Desktop/yunwu-gen-image/src/pages/Dashboard/index.tsx"
     },
@@ -4795,7 +4951,7 @@
             "format": "esm"
           },
           "src/pages/Dashboard/index.tsx": {
-            "bytes": 22043,
+            "bytes": 22065,
             "imports": [
               {
                 "path": "react",
@@ -6248,7 +6404,7 @@
                 "bytesInOutput": 381
               },
               "src/pages/Dashboard/index.tsx": {
-                "bytesInOutput": 22632
+                "bytesInOutput": 23160
               },
               "src/pages/Users/index.tsx": {
                 "bytesInOutput": 9041
@@ -6266,7 +6422,7 @@
                 "bytesInOutput": 1992
               }
             },
-            "bytes": 74492
+            "bytes": 75020
           }
         }
       }
