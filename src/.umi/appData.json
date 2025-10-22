@@ -161,6 +161,10 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
             0
           ]
         },
@@ -262,7 +266,11 @@
             1,
             1,
             1,
-            2
+            2,
+            4,
+            0,
+            1,
+            1
           ]
         },
         "register": 0
@@ -349,7 +357,11 @@
             5,
             5,
             6,
-            3
+            3,
+            4,
+            11,
+            4,
+            14
           ]
         },
         "register": 11
@@ -366,6 +378,10 @@
       "time": {
         "hooks": {
           "addEntryCode": [
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -495,6 +511,7 @@
             0,
             0,
             0,
+            0,
             0
           ],
           "onCheckCode": [
@@ -548,6 +565,9 @@
             0,
             0,
             1,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -1605,6 +1625,30 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ]
         },
@@ -1689,9 +1733,17 @@
             0,
             0,
             0,
+            1,
+            1,
+            2,
+            0,
             1
           ],
           "addRuntimePlugin": [
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -1900,6 +1952,10 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "addEntryImports": [
@@ -1966,6 +2022,14 @@
             0,
             0,
             1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -2138,7 +2202,11 @@
             12,
             5,
             14,
-            12
+            12,
+            10,
+            25,
+            8,
+            26
           ],
           "addPolyfillImports": [
             0,
@@ -2276,6 +2344,14 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ]
         },
@@ -2292,6 +2368,14 @@
       "time": {
         "hooks": {
           "addPolyfillImports": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -2511,6 +2595,10 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
             0
           ]
         },
@@ -2621,6 +2709,10 @@
             0,
             0,
             1,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "addBeforeMiddlewares": [
@@ -2776,7 +2868,15 @@
             5,
             1,
             6,
-            1
+            1,
+            7,
+            2,
+            8,
+            2,
+            6,
+            1,
+            36,
+            2
           ]
         },
         "register": 3
@@ -2898,7 +2998,11 @@
             8,
             4,
             4,
-            4
+            4,
+            5,
+            5,
+            5,
+            11
           ]
         },
         "register": 2
@@ -3050,6 +3154,10 @@
             0,
             1,
             1,
+            0,
+            1,
+            0,
+            0,
             0
           ]
         },
@@ -3188,6 +3296,30 @@
             0,
             0,
             1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -3745,6 +3877,14 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "addRuntimePlugin": [
@@ -3815,9 +3955,17 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "addRuntimePluginKey": [
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -3955,6 +4103,10 @@
             2,
             1,
             1,
+            1,
+            1,
+            2,
+            2,
             1
           ],
           "addExtraBabelPlugins": [
@@ -4150,7 +4302,7 @@
       "parentId": "1",
       "id": "3",
       "absPath": "/dashboard",
-      "__content": "import React, { useState } from 'react';\nimport { Card, Upload, Button, Input, Space, message, Image } from 'antd';\nimport {\n  CloudUploadOutlined,\n  FileTextOutlined,\n  FileOutlined,\n  DeleteOutlined,\n} from '@ant-design/icons';\n// @ts-ignore\nimport Papa from 'papaparse';\nimport './index.less';\n\nconst { TextArea } = Input;\n\nconst Dashboard: React.FC = () => {\n  const [fileList, setFileList] = useState<any[]>([]);\n  const [promptContent, setPromptContent] = useState('');\n\n  // 参考图上传配置\n  const uploadProps = {\n    name: 'file',\n    multiple: true,\n    fileList,\n    beforeUpload: (file: any) => {\n      const isImage = file.type.startsWith('image/');\n      if (!isImage) {\n        message.error('只能上传图片文件!');\n        return false;\n      }\n      const isLt10M = file.size / 1024 / 1024 < 10;\n      if (!isLt10M) {\n        message.error('图片大小不能超过 10MB!');\n        return false;\n      }\n      return false; // 阻止自动上传\n    },\n    onChange: (info: any) => {\n      setFileList(info.fileList.slice(-20)); // 最多20张\n    },\n    onDrop: (e: any) => {\n      console.log('Dropped files', e.dataTransfer.files);\n    },\n    onRemove: (file: any) => {\n      const newFileList = fileList.filter(item => item.uid !== file.uid);\n      setFileList(newFileList);\n    },\n  };\n\n\n  // 删除图片\n  const handleRemoveImage = (uid: string) => {\n    const newFileList = fileList.filter(item => item.uid !== uid);\n    setFileList(newFileList);\n  };\n\n\n  // 使用PapaParse解析CSV内容\n  const parseCSV = (csvText: string) => {\n    console.log('CSV原始内容:', csvText);\n    \n    const result = Papa.parse(csvText, {\n      header: true,\n      skipEmptyLines: true,\n      encoding: 'UTF-8',\n      complete: (results: any) => {\n        console.log('PapaParse解析完成:', results);\n      },\n      error: (error: any) => {\n        console.error('PapaParse解析错误:', error);\n      }\n    });\n    \n    console.log('解析结果:', result.data);\n    return result.data;\n  };\n\n  // 处理文件上传\n  const handleFileUpload = (file: any) => {\n    // 检查是否为CSV文件\n    if (file.name.toLowerCase().endsWith('.csv')) {\n      // 使用FileReader读取文件，然后使用PapaParse解析\n      const reader = new FileReader();\n      reader.onload = (e) => {\n        const csvText = e.target?.result as string;\n        console.log('读取的CSV内容:', csvText);\n        \n        // 使用PapaParse解析CSV文本\n        Papa.parse(csvText, {\n          header: true,\n          skipEmptyLines: true,\n          encoding: 'UTF-8',\n          complete: (results: any) => {\n            console.log('PapaParse解析完成:', results);\n            const csvData = results.data;\n            \n            // 显示所有列名，帮助调试\n            if (csvData.length > 0) {\n              const headers = Object.keys(csvData[0]);\n              console.log('CSV列名:', headers);\n            }\n            \n            // 查找包含分镜提示词的行\n            const validShots = csvData.filter((row: any) => {\n              // 尝试不同的列名\n              const shotNumber = row['分镜数'] || row['分镜'] || row['序号'] || row['编号'];\n              const prompt = row['分镜提示词'] || row['提示词'] || row['内容'] || row['描述'];\n              \n              const hasShotNumber = shotNumber && shotNumber.toString().trim();\n              const hasPrompt = prompt && prompt.toString().trim();\n              \n              console.log('检查行:', row, 'hasShotNumber:', hasShotNumber, 'hasPrompt:', hasPrompt);\n              return hasShotNumber && hasPrompt;\n            });\n            \n            console.log('有效的分镜数据:', validShots);\n            \n            if (validShots.length === 0) {\n              message.warning('未找到有效的分镜提示词数据，请检查CSV文件格式');\n              \n              // 显示调试信息\n              const debugInfo = `CSV调试信息:\\n\\n原始内容:\\n${csvText.substring(0, 500)}...\\n\\n解析后的数据:\\n${JSON.stringify(csvData.slice(0, 3), null, 2)}`;\n              setPromptContent(debugInfo);\n              return;\n            }\n            \n            const shotPrompts = validShots\n              .map((row: any) => {\n                const shotNumber = row['分镜数'] || row['分镜'] || row['序号'] || row['编号'] || '';\n                const prompt = row['分镜提示词'] || row['提示词'] || row['内容'] || row['描述'] || '';\n                return `分镜${shotNumber}:\\n${prompt}`;\n              })\n              .join('\\n\\n' + '='.repeat(50) + '\\n\\n');\n            \n            setPromptContent(shotPrompts);\n            message.success(`成功解析CSV文件，提取了${validShots.length}条分镜提示词`);\n          },\n          error: (error: any) => {\n            console.error('PapaParse解析错误:', error);\n            message.error('CSV文件解析失败，请检查文件格式');\n          }\n        });\n      };\n      \n      // 尝试不同的编码\n      reader.readAsText(file, 'UTF-8');\n    } else {\n      // JSON文件使用FileReader\n      const reader = new FileReader();\n      reader.onload = (e) => {\n        const content = e.target?.result as string;\n        setPromptContent(content);\n        message.success('文件内容已加载到文本区域');\n      };\n      reader.readAsText(file);\n    }\n    \n    return false; // 阻止自动上传\n  };\n\n  // CSV/JSON 文件上传配置\n  const fileUploadProps = {\n    name: 'file',\n    accept: '.csv,.json',\n    beforeUpload: handleFileUpload,\n    showUploadList: false,\n  };\n\n  return (\n    <div className=\"dashboard-page\">\n      <div className=\"page-layout\">\n        {/* 左侧列 */}\n        <div className=\"left-column\">\n          {/* 参考图上传 */}\n          <Card \n            title={\n              <span>\n                <CloudUploadOutlined style={{ marginRight: 8, color: '#722ed1' }} />\n                参考图上传\n              </span>\n            }\n            className=\"upload-card\"\n          >\n            <Upload.Dragger {...uploadProps} className=\"upload-dragger\">\n              <p className=\"ant-upload-drag-icon\">\n                <CloudUploadOutlined style={{ fontSize: 48, color: '#722ed1' }} />\n              </p>\n              <p className=\"ant-upload-text\">拖拽图片到此处,或点击选择</p>\n              <p className=\"ant-upload-hint\">\n                支持 JPG、PNG、GIF 格式，单个文件不超过 10MB\n              </p>\n            </Upload.Dragger>\n            <div className=\"upload-info\">\n              {fileList.length}/20 images\n            </div>\n            \n            {/* 图片预览区域 */}\n            {fileList.length > 0 && (\n              <div className=\"image-preview-section\">\n                <div className=\"preview-title\">已上传图片</div>\n                <div className=\"image-grid\">\n                  {fileList.map((file) => (\n                    <div key={file.uid} className=\"image-item\">\n                      <Image\n                        src={file.thumbUrl || URL.createObjectURL(file.originFileObj)}\n                        alt={file.name}\n                        className=\"preview-image\"\n                        preview={{\n                          mask: <div className=\"preview-mask\">预览</div>\n                        }}\n                      />\n                      <Button\n                        type=\"text\"\n                        danger\n                        icon={<DeleteOutlined />}\n                        className=\"delete-btn\"\n                        onClick={() => handleRemoveImage(file.uid)}\n                      />\n                    </div>\n                  ))}\n                </div>\n              </div>\n            )}\n          </Card>\n\n          {/* 提示词导入/导出 */}\n          <Card \n            title={\n              <span>\n                <FileTextOutlined style={{ marginRight: 8, color: '#722ed1' }} />\n                提示词导入/导出\n              </span>\n            }\n            className=\"prompt-card\"\n          >\n            <TextArea\n              value={promptContent}\n              onChange={(e) => setPromptContent(e.target.value)}\n              placeholder=\"粘贴JSON内容或拖拽JSON/CSV文件...\"\n              rows={8}\n              className=\"prompt-textarea\"\n            />\n            \n            <div className=\"prompt-buttons\">\n              <Upload {...fileUploadProps}>\n                <Button \n                  type=\"primary\" \n                  icon={<FileOutlined />}\n                  className=\"upload-file-btn\"\n                >\n                  JSON/CSV\n                </Button>\n              </Upload>\n            </div>\n\n          </Card>\n        </div>\n      </div>\n    </div>\n  );\n};\n\nexport default Dashboard;\n\n\n",
+      "__content": "import React, { useState } from 'react';\nimport { Card, Upload, Button, Input, Space, message, Image } from 'antd';\nimport {\n  CloudUploadOutlined,\n  FileTextOutlined,\n  FileOutlined,\n  DeleteOutlined,\n} from '@ant-design/icons';\n// @ts-ignore\nimport Papa from 'papaparse';\nimport './index.less';\n\nconst { TextArea } = Input;\n\nconst Dashboard: React.FC = () => {\n  const [fileList, setFileList] = useState<any[]>([]);\n  const [promptContent, setPromptContent] = useState('');\n\n  // 参考图上传配置\n  const uploadProps = {\n    name: 'file',\n    multiple: true,\n    fileList,\n    beforeUpload: (file: any) => {\n      const isImage = file.type.startsWith('image/');\n      if (!isImage) {\n        message.error('只能上传图片文件!');\n        return false;\n      }\n      const isLt10M = file.size / 1024 / 1024 < 10;\n      if (!isLt10M) {\n        message.error('图片大小不能超过 10MB!');\n        return false;\n      }\n      return false; // 阻止自动上传\n    },\n    onChange: (info: any) => {\n      setFileList(info.fileList.slice(-20)); // 最多20张\n    },\n    onDrop: (e: any) => {\n      console.log('Dropped files', e.dataTransfer.files);\n    },\n    onRemove: (file: any) => {\n      const newFileList = fileList.filter(item => item.uid !== file.uid);\n      setFileList(newFileList);\n    },\n  };\n\n\n  // 删除图片\n  const handleRemoveImage = (uid: string) => {\n    const newFileList = fileList.filter(item => item.uid !== uid);\n    setFileList(newFileList);\n  };\n\n\n  // 使用PapaParse解析CSV内容\n  const parseCSV = (csvText: string) => {\n    console.log('CSV原始内容:', csvText);\n    \n    const result = Papa.parse(csvText, {\n      header: true,\n      skipEmptyLines: true,\n      encoding: 'UTF-8',\n      complete: (results: any) => {\n        console.log('PapaParse解析完成:', results);\n      },\n      error: (error: any) => {\n        console.error('PapaParse解析错误:', error);\n      }\n    });\n    \n    console.log('解析结果:', result.data);\n    return result.data;\n  };\n\n  // 处理文件上传\n  const handleFileUpload = async (file: any) => {\n    // 检查是否为CSV文件\n    if (file.name.toLowerCase().endsWith('.csv')) {\n      try {\n        // 读取文件为ArrayBuffer\n        const arrayBuffer = await file.arrayBuffer();\n        const bytes = new Uint8Array(arrayBuffer);\n        \n        console.log('文件字节长度:', bytes.length);\n        \n        // 尝试不同编码\n        let decodedText = '';\n        let encoding = 'UTF-8';\n        \n        // 首先尝试UTF-8\n        try {\n          const utf8Decoder = new TextDecoder('utf-8');\n          decodedText = utf8Decoder.decode(bytes);\n          console.log('UTF-8解码结果:', decodedText.substring(0, 200));\n          \n          // 检查是否有乱码\n          if (decodedText.includes('') || decodedText.includes('')) {\n            throw new Error('UTF-8解码出现乱码');\n          }\n        } catch (error) {\n          console.log('UTF-8解码失败，尝试GBK编码');\n          \n          // 尝试GBK编码\n          try {\n            const gbkDecoder = new TextDecoder('gbk');\n            decodedText = gbkDecoder.decode(bytes);\n            encoding = 'GBK';\n            console.log('GBK解码结果:', decodedText.substring(0, 200));\n          } catch (gbkError) {\n            console.log('GBK解码失败，尝试GB2312编码');\n            \n            // 尝试GB2312编码\n            const gb2312Decoder = new TextDecoder('gb2312');\n            decodedText = gb2312Decoder.decode(bytes);\n            encoding = 'GB2312';\n            console.log('GB2312解码结果:', decodedText.substring(0, 200));\n          }\n        }\n        \n        console.log(`使用${encoding}编码成功，开始解析CSV...`);\n        \n        // 使用PapaParse解析CSV文本\n        Papa.parse(decodedText, {\n          header: true,\n          skipEmptyLines: true,\n          complete: (results: any) => {\n            console.log('PapaParse解析完成:', results);\n            const csvData = results.data;\n            \n            // 显示所有列名，帮助调试\n            if (csvData.length > 0) {\n              const headers = Object.keys(csvData[0]);\n              console.log('CSV列名:', headers);\n            }\n            \n            // 查找包含分镜提示词的行\n            const validShots = csvData.filter((row: any) => {\n              // 尝试不同的列名\n              const shotNumber = row['分镜数'] || row['分镜'] || row['序号'] || row['编号'];\n              const prompt = row['分镜提示词'] || row['提示词'] || row['内容'] || row['描述'];\n              \n              const hasShotNumber = shotNumber && shotNumber.toString().trim();\n              const hasPrompt = prompt && prompt.toString().trim();\n              \n              console.log('检查行:', row, 'hasShotNumber:', hasShotNumber, 'hasPrompt:', hasPrompt);\n              return hasShotNumber && hasPrompt;\n            });\n            \n            console.log('有效的分镜数据:', validShots);\n            \n            if (validShots.length === 0) {\n              message.warning('未找到有效的分镜提示词数据，请检查CSV文件格式');\n              \n              // 显示调试信息\n              const debugInfo = `CSV调试信息:\\n\\n使用编码: ${encoding}\\n\\n原始内容:\\n${decodedText.substring(0, 500)}...\\n\\n解析后的数据:\\n${JSON.stringify(csvData.slice(0, 3), null, 2)}`;\n              setPromptContent(debugInfo);\n              return;\n            }\n            \n            const shotPrompts = validShots\n              .map((row: any) => {\n                const shotNumber = row['分镜数'] || row['分镜'] || row['序号'] || row['编号'] || '';\n                const prompt = row['分镜提示词'] || row['提示词'] || row['内容'] || row['描述'] || '';\n                return `分镜${shotNumber}:\\n${prompt}`;\n              })\n              .join('\\n\\n' + '='.repeat(50) + '\\n\\n');\n            \n            setPromptContent(shotPrompts);\n            message.success(`成功解析CSV文件，提取了${validShots.length}条分镜提示词`);\n          },\n          error: (error: any) => {\n            console.error('PapaParse解析错误:', error);\n            message.error('CSV文件解析失败，请检查文件格式');\n          }\n        });\n      } catch (error) {\n        console.error('文件读取失败:', error);\n        message.error('文件读取失败，请重试');\n      }\n    } else {\n      // JSON文件使用FileReader\n      const reader = new FileReader();\n      reader.onload = (e) => {\n        const content = e.target?.result as string;\n        setPromptContent(content);\n        message.success('文件内容已加载到文本区域');\n      };\n      reader.readAsText(file);\n    }\n    \n    return false; // 阻止自动上传\n  };\n\n  // CSV/JSON 文件上传配置\n  const fileUploadProps = {\n    name: 'file',\n    accept: '.csv,.json',\n    beforeUpload: handleFileUpload,\n    showUploadList: false,\n  };\n\n  return (\n    <div className=\"dashboard-page\">\n      <div className=\"page-layout\">\n        {/* 左侧列 */}\n        <div className=\"left-column\">\n          {/* 参考图上传 */}\n          <Card \n            title={\n              <span>\n                <CloudUploadOutlined style={{ marginRight: 8, color: '#722ed1' }} />\n                参考图上传\n              </span>\n            }\n            className=\"upload-card\"\n          >\n            <Upload.Dragger {...uploadProps} className=\"upload-dragger\">\n              <p className=\"ant-upload-drag-icon\">\n                <CloudUploadOutlined style={{ fontSize: 48, color: '#722ed1' }} />\n              </p>\n              <p className=\"ant-upload-text\">拖拽图片到此处,或点击选择</p>\n              <p className=\"ant-upload-hint\">\n                支持 JPG、PNG、GIF 格式，单个文件不超过 10MB\n              </p>\n            </Upload.Dragger>\n            <div className=\"upload-info\">\n              {fileList.length}/20 images\n            </div>\n            \n            {/* 图片预览区域 */}\n            {fileList.length > 0 && (\n              <div className=\"image-preview-section\">\n                <div className=\"preview-title\">已上传图片</div>\n                <div className=\"image-grid\">\n                  {fileList.map((file) => (\n                    <div key={file.uid} className=\"image-item\">\n                      <Image\n                        src={file.thumbUrl || URL.createObjectURL(file.originFileObj)}\n                        alt={file.name}\n                        className=\"preview-image\"\n                        preview={{\n                          mask: <div className=\"preview-mask\">预览</div>\n                        }}\n                      />\n                      <Button\n                        type=\"text\"\n                        danger\n                        icon={<DeleteOutlined />}\n                        className=\"delete-btn\"\n                        onClick={() => handleRemoveImage(file.uid)}\n                      />\n                    </div>\n                  ))}\n                </div>\n              </div>\n            )}\n          </Card>\n\n          {/* 提示词导入/导出 */}\n          <Card \n            title={\n              <span>\n                <FileTextOutlined style={{ marginRight: 8, color: '#722ed1' }} />\n                提示词导入/导出\n              </span>\n            }\n            className=\"prompt-card\"\n          >\n            <TextArea\n              value={promptContent}\n              onChange={(e) => setPromptContent(e.target.value)}\n              placeholder=\"粘贴JSON内容或拖拽JSON/CSV文件...\"\n              rows={8}\n              className=\"prompt-textarea\"\n            />\n            \n            <div className=\"prompt-buttons\">\n              <Upload {...fileUploadProps}>\n                <Button \n                  type=\"primary\" \n                  icon={<FileOutlined />}\n                  className=\"upload-file-btn\"\n                >\n                  JSON/CSV\n                </Button>\n              </Upload>\n            </div>\n\n          </Card>\n        </div>\n      </div>\n    </div>\n  );\n};\n\nexport default Dashboard;\n\n\n",
       "__isJSFile": true,
       "__absFile": "/Users/didi/Desktop/yunwu-gen-image/src/pages/Dashboard/index.tsx"
     },
@@ -5530,7 +5682,7 @@
             "format": "esm"
           },
           "src/pages/Dashboard/index.tsx": {
-            "bytes": 8853,
+            "bytes": 10255,
             "imports": [
               {
                 "path": "react",
@@ -6983,7 +7135,7 @@
                 "bytesInOutput": 381
               },
               "src/pages/Dashboard/index.tsx": {
-                "bytesInOutput": 10066
+                "bytesInOutput": 11624
               },
               "src/pages/Users/index.tsx": {
                 "bytesInOutput": 9023
@@ -7001,7 +7153,7 @@
                 "bytesInOutput": 1992
               }
             },
-            "bytes": 61908
+            "bytes": 63466
           }
         }
       }

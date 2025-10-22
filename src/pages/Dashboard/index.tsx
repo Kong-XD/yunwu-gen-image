@@ -75,20 +75,56 @@ const Dashboard: React.FC = () => {
   };
 
   // 处理文件上传
-  const handleFileUpload = (file: any) => {
+  const handleFileUpload = async (file: any) => {
     // 检查是否为CSV文件
     if (file.name.toLowerCase().endsWith('.csv')) {
-      // 使用FileReader读取文件，然后使用PapaParse解析
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const csvText = e.target?.result as string;
-        console.log('读取的CSV内容:', csvText);
+      try {
+        // 读取文件为ArrayBuffer
+        const arrayBuffer = await file.arrayBuffer();
+        const bytes = new Uint8Array(arrayBuffer);
+        
+        console.log('文件字节长度:', bytes.length);
+        
+        // 尝试不同编码
+        let decodedText = '';
+        let encoding = 'UTF-8';
+        
+        // 首先尝试UTF-8
+        try {
+          const utf8Decoder = new TextDecoder('utf-8');
+          decodedText = utf8Decoder.decode(bytes);
+          console.log('UTF-8解码结果:', decodedText.substring(0, 200));
+          
+          // 检查是否有乱码
+          if (decodedText.includes('') || decodedText.includes('')) {
+            throw new Error('UTF-8解码出现乱码');
+          }
+        } catch (error) {
+          console.log('UTF-8解码失败，尝试GBK编码');
+          
+          // 尝试GBK编码
+          try {
+            const gbkDecoder = new TextDecoder('gbk');
+            decodedText = gbkDecoder.decode(bytes);
+            encoding = 'GBK';
+            console.log('GBK解码结果:', decodedText.substring(0, 200));
+          } catch (gbkError) {
+            console.log('GBK解码失败，尝试GB2312编码');
+            
+            // 尝试GB2312编码
+            const gb2312Decoder = new TextDecoder('gb2312');
+            decodedText = gb2312Decoder.decode(bytes);
+            encoding = 'GB2312';
+            console.log('GB2312解码结果:', decodedText.substring(0, 200));
+          }
+        }
+        
+        console.log(`使用${encoding}编码成功，开始解析CSV...`);
         
         // 使用PapaParse解析CSV文本
-        Papa.parse(csvText, {
+        Papa.parse(decodedText, {
           header: true,
           skipEmptyLines: true,
-          encoding: 'UTF-8',
           complete: (results: any) => {
             console.log('PapaParse解析完成:', results);
             const csvData = results.data;
@@ -118,7 +154,7 @@ const Dashboard: React.FC = () => {
               message.warning('未找到有效的分镜提示词数据，请检查CSV文件格式');
               
               // 显示调试信息
-              const debugInfo = `CSV调试信息:\n\n原始内容:\n${csvText.substring(0, 500)}...\n\n解析后的数据:\n${JSON.stringify(csvData.slice(0, 3), null, 2)}`;
+              const debugInfo = `CSV调试信息:\n\n使用编码: ${encoding}\n\n原始内容:\n${decodedText.substring(0, 500)}...\n\n解析后的数据:\n${JSON.stringify(csvData.slice(0, 3), null, 2)}`;
               setPromptContent(debugInfo);
               return;
             }
@@ -139,10 +175,10 @@ const Dashboard: React.FC = () => {
             message.error('CSV文件解析失败，请检查文件格式');
           }
         });
-      };
-      
-      // 尝试不同的编码
-      reader.readAsText(file, 'UTF-8');
+      } catch (error) {
+        console.error('文件读取失败:', error);
+        message.error('文件读取失败，请重试');
+      }
     } else {
       // JSON文件使用FileReader
       const reader = new FileReader();
