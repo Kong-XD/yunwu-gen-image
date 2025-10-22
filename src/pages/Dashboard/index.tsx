@@ -5,6 +5,8 @@ import {
   FileTextOutlined,
   FileOutlined,
   DeleteOutlined,
+  GlobalOutlined,
+  PlayCircleOutlined
 } from '@ant-design/icons';
 // @ts-ignore
 import Papa from 'papaparse';
@@ -289,6 +291,23 @@ const Dashboard: React.FC = () => {
             </div>
 
           </Card>
+          
+           {/* 场景管理 */}
+           <Card 
+             title={
+               <span>
+                 <GlobalOutlined style={{ marginRight: 8, color: '#722ed1' }} />
+                 场景管理
+               </span>
+             }
+             extra={<Button type="primary" icon={<PlayCircleOutlined />}>全部生成</Button>}
+             className="prompt-card"
+           >
+             <div className="scene-management-content">
+               <div className="no-scene-message">暂无场景</div>
+               <div className="input-prompt">请输入JSON内容</div>
+             </div>
+           </Card>
         </div>
       </div>
     </div>
