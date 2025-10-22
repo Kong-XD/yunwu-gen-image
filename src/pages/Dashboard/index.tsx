@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { Card, Upload, Button, Input, Space, message, Image } from 'antd';
 import {
   CloudUploadOutlined,
-  FileTextOutlined,
-  FileOutlined,
   DeleteOutlined,
   GlobalOutlined,
-  PlayCircleOutlined
+  PlayCircleOutlined,
+  UploadOutlined,
+  KeyOutlined,
+  BulbOutlined
 } from '@ant-design/icons';
 // @ts-ignore
 import Papa from 'papaparse';
@@ -20,6 +21,30 @@ const Dashboard: React.FC = () => {
   const [validShots, setValidShots] = useState<any[]>([]);
   const [editingScene, setEditingScene] = useState<number | null>(null);
   const [editingContent, setEditingContent] = useState<any>({});
+  const [apiKey, setApiKey] = useState<string>(() => {
+    // 从localStorage加载API密钥
+    return localStorage.getItem('apiKey') || '';
+  });
+  const [customStyle, setCustomStyle] = useState<string>(() => {
+    // 从localStorage加载自定义风格
+    return localStorage.getItem('customStyle') || '';
+  });
+
+  // 处理API密钥变化
+  const handleApiKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newApiKey = e.target.value;
+    setApiKey(newApiKey);
+    // 保存到localStorage
+    localStorage.setItem('apiKey', newApiKey);
+  };
+
+  // 处理自定义风格变化
+  const handleCustomStyleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newCustomStyle = e.target.value;
+    setCustomStyle(newCustomStyle);
+    // 保存到localStorage
+    localStorage.setItem('customStyle', newCustomStyle);
+  };
 
   // 解析场景的提示词内容
   const parseScenePrompt = (sceneData: any) => {
@@ -293,6 +318,57 @@ const Dashboard: React.FC = () => {
       <div className="page-layout">
         {/* 左侧列 */}
         <div className="left-column">
+          {/* API密钥配置 */}
+          <Card 
+            title={
+              <span>
+                <KeyOutlined style={{ marginRight: 8, color: '#722ed1' }} />
+                API密钥配置
+              </span>
+            }
+            extra={
+              apiKey.trim() ? (
+                <span className="auto-save-hint">✅ 已自动保存</span>
+              ) : null
+            }
+            className="api-key-card"
+          >
+            <Input
+              value={apiKey}
+              onChange={handleApiKeyChange}
+              placeholder="请输入API密钥..."
+              className="api-key-input"
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck="false"
+            />
+          </Card>
+
+          {/* 自定义风格配置 */}
+          <Card 
+            title={
+              <span>
+                <BulbOutlined style={{ marginRight: 8, color: '#722ed1' }} />
+                自定义风格
+              </span>
+            }
+            extra={
+              customStyle.trim() ? (
+                <span className="auto-save-hint">✅ 已自动保存</span>
+              ) : null
+            }
+            className="custom-style-card"
+          >
+            <TextArea
+              value={customStyle}
+              onChange={handleCustomStyleChange}
+              placeholder="请输入自定义风格描述，例如：动漫风格、写实风格、油画风格等..."
+              rows={4}
+              className="custom-style-textarea"
+            />
+          </Card>
+
           {/* 参考图上传 */}
           <Card 
             title={
@@ -345,37 +421,6 @@ const Dashboard: React.FC = () => {
             )}
           </Card>
 
-          {/* 提示词导入/导出 */}
-          <Card 
-            title={
-              <span>
-                <FileTextOutlined style={{ marginRight: 8, color: '#722ed1' }} />
-                提示词导入/导出
-              </span>
-            }
-            className="prompt-card"
-          >
-            <TextArea
-              value={promptContent}
-              onChange={(e) => setPromptContent(e.target.value)}
-              placeholder="粘贴JSON内容或拖拽JSON/CSV文件..."
-              rows={8}
-              className="prompt-textarea"
-            />
-            
-            <div className="prompt-buttons">
-              <Upload {...fileUploadProps}>
-                <Button 
-                  type="primary" 
-                  icon={<FileOutlined />}
-                  className="upload-file-btn"
-                >
-                  JSON/CSV
-                </Button>
-              </Upload>
-            </div>
-
-          </Card>
           
            {/* 场景管理 */}
            <Card 
@@ -385,7 +430,19 @@ const Dashboard: React.FC = () => {
                  场景管理
                </span>
              }
-             extra={<Button type="primary" icon={<PlayCircleOutlined />}>全部生成</Button>}
+             extra={
+               <Space>
+                 <Upload {...fileUploadProps}>
+                   <Button 
+                     type="default" 
+                     icon={<UploadOutlined />}
+                   >
+                     JSON/CSV
+                   </Button>
+                 </Upload>
+                 <Button type="primary" icon={<PlayCircleOutlined />}>全部生成</Button>
+               </Space>
+             }
              className="scene-management-card"
            >
              <div className="scene-content-layout">
@@ -423,7 +480,7 @@ const Dashboard: React.FC = () => {
                            <div className="scene-left-panel">
                              <div className="panel-content">
                                <div className="panel-title">
-                                 Image Prompt
+                                 <span>Image Prompt</span>
                                </div>
                                {editingScene === index ? (
                                  <div className="image-prompt-section">
@@ -432,9 +489,9 @@ const Dashboard: React.FC = () => {
                                      <div className="field-item">
                                        <TextArea
                                         style={{ height: 300 }}
-                                         value={editingContent.subject?.action || ''}
-                                         onChange={(e) => updateSubjectContent('action', e.target.value)}
-                                         placeholder="输入内容"
+                                        value={editingContent.subject?.action || ''}
+                                        onChange={(e) => updateSubjectContent('action', e.target.value)}
+                                        placeholder="输入内容"
                                        />
                                      </div>
                                    </div> 
@@ -447,80 +504,13 @@ const Dashboard: React.FC = () => {
                                        {/* 主体部分 */}
                                        {parsedPrompt.subject && (
                                          <div className="prompt-section">
-                                           {parsedPrompt.subject.characters && (
-                                             <div className="field-item">
-                                               <div className="field-label">角色:</div>
-                                               <div className="field-value">{parsedPrompt.subject.characters}</div>
-                                             </div>
-                                           )}
-                                           {parsedPrompt.subject.expression && (
-                                             <div className="field-item">
-                                               <div className="field-label">表情:</div>
-                                               <div className="field-value">{parsedPrompt.subject.expression}</div>
-                                             </div>
-                                           )}
                                            {parsedPrompt.subject.action && (
                                              <div className="field-item">
                                                <div className="field-value action-text">{parsedPrompt.subject.action}</div>
                                              </div>
                                            )}
                                          </div>
-                                       )}
-
-                                       {/* 环境部分 */}
-                                       {parsedPrompt.environment && (
-                                         <div className="prompt-section">
-                                           <div className="section-title">[环境]</div>
-                                           <div className="field-item">
-                                             <div className="field-label">场景:</div>
-                                             <div className="field-value">{parsedPrompt.environment}</div>
-                                           </div>
-                                         </div>
-                                       )}
-
-                                       {/* 时间部分 */}
-                                       {parsedPrompt.time && (
-                                         <div className="prompt-section">
-                                           <div className="section-title">[时间]</div>
-                                           <div className="field-item">
-                                             <div className="field-label">时间:</div>
-                                             <div className="field-value">{parsedPrompt.time}</div>
-                                           </div>
-                                         </div>
-                                       )}
-
-                                       {/* 天气部分 */}
-                                       {parsedPrompt.weather && (
-                                         <div className="prompt-section">
-                                           <div className="section-title">[天气]</div>
-                                           <div className="field-item">
-                                             <div className="field-label">天气:</div>
-                                             <div className="field-value">{parsedPrompt.weather}</div>
-                                           </div>
-                                         </div>
-                                       )}
-
-                                       {/* 视角部分 */}
-                                       {parsedPrompt.perspective && (
-                                         <div className="prompt-section">
-                                           <div className="section-title">[视角]</div>
-                                           <div className="field-item">
-                                             <div className="field-label">视角:</div>
-                                             <div className="field-value">{parsedPrompt.perspective}</div>
-                                           </div>
-                                         </div>
-                                       )}
-
-                                       {/* 景别部分 */}
-                                       {parsedPrompt.shotType && (
-                                         <div className="prompt-section">
-                                           <div className="section-title">[景别]</div>
-                                           <div className="field-item">
-                                             <div className="field-label">景别:</div>
-                                             <div className="field-value">{parsedPrompt.shotType}</div>
-                                           </div>
-                                         </div>
-                                       )}
+                                       )}               
                                      </>
                                    ) : (
                                      <div className="no-scene-message">暂无场景数据</div>
@@ -533,7 +523,9 @@ const Dashboard: React.FC = () => {
                            {/* 右栏：生成的图片 */}
                            <div className="scene-right-panel">
                              <div className="panel-content">
-                               {/* <div className="panel-title">生成的图片 (0/1)</div> */}
+                               <div className="panel-title">
+                                 <span>Generated Image</span>
+                               </div>
                                <div className="image-placeholder">
                                  <div className="image-number">{index + 1}</div>
                                  <div className="waiting-text">Waiting...</div>

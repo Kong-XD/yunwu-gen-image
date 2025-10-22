@@ -17,6 +17,81 @@
     }
   }
 
+  // API密钥配置样式
+  .api-key-card {
+    :global {
+      .ant-card-body {
+        padding: 16px 20px;
+      }
+    }
+
+    .auto-save-hint {
+      font-size: 12px;
+      color: #52c41a;
+      font-weight: 600;
+      opacity: 1;
+    }
+
+    .api-key-input {
+      width: 100%;
+      height: 36px;
+      border-radius: 6px;
+      border: 1px solid #d9d9d9;
+      transition: all 0.3s ease;
+      font-size: 14px;
+
+      &:focus {
+        border-color: #722ed1;
+        box-shadow: 0 0 0 2px rgba(114, 46, 209, 0.1);
+      }
+
+      &:hover {
+        border-color: #722ed1;
+      }
+    }
+  }
+
+  // 自定义风格配置样式
+  .custom-style-card {
+    :global {
+      .ant-card-body {
+        padding: 20px;
+      }
+    }
+
+    .auto-save-hint {
+      font-size: 12px;
+      color: #52c41a;
+      font-weight: 600;
+      opacity: 1;
+    }
+
+    .custom-style-textarea {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #d9d9d9;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      line-height: 1.6;
+      resize: vertical;
+      min-height: 100px;
+
+      &:focus {
+        border-color: #722ed1;
+        box-shadow: 0 0 0 2px rgba(114, 46, 209, 0.1);
+      }
+
+      &:hover {
+        border-color: #722ed1;
+      }
+
+      &::placeholder {
+        color: #999;
+        font-style: italic;
+      }
+    }
+  }
+
   // 卡片通用样式
   :global {
     .ant-card {
@@ -370,7 +445,7 @@
             &.action-text {
               white-space: pre-wrap;
               background: rgba(114, 46, 209, 0.05);
-              padding: 12px;
+              // padding: 12px;
               border-radius: 8px;
               border: 1px solid rgba(114, 46, 209, 0.1);
             }
@@ -465,6 +540,7 @@
       .image-prompt-section {
         margin-bottom: 24px;
         padding: 24px;
+        padding-top: 0;
         background: rgba(255, 255, 255, 0.8);
         border-radius: 12px;
 
@@ -808,6 +884,47 @@
             flex-direction: column;
             min-width: 0; // 防止内容溢出
             min-height: 600px;
+
+            .panel-content {
+              flex: 1;
+              display: flex;
+              flex-direction: column;
+              padding: 20px;
+              background: rgba(255, 255, 255, 0.8);
+              border-radius: 12px;
+              border: 1px solid rgba(114, 46, 209, 0.1);
+              min-height: 500px;
+
+              .panel-title {
+                font-size: 20px;
+                font-weight: 600;
+                color: #722ed1;
+                text-align: center;
+                flex-shrink: 0;
+                padding: 16px 0;
+                padding-top: 0px;
+                position: relative;
+                letter-spacing: 1px;
+                
+                &::before {
+                  content: '';
+                  position: absolute;
+                  top: 35%;
+                  left: 0;
+                  right: 0;
+                  height: 1px;
+                  background: linear-gradient(90deg, transparent 0%, #e8e8e8 20%, #e8e8e8 80%, transparent 100%);
+                  z-index: 1;
+                }
+                
+                span {
+                  background: rgba(255, 255, 255, 0.9);
+                  padding: 0 20px;
+                  position: relative;
+                  z-index: 2;
+                }
+              }
+            }
           }
 
           .scene-right-panel {
@@ -828,59 +945,45 @@
               min-height: 500px;
 
               .panel-title {
-                font-size: 18px;
-                font-weight: 700;
+                font-size: 20px;
+                font-weight: 600;
                 color: #722ed1;
-                margin-bottom: 20px;
                 text-align: center;
                 flex-shrink: 0;
-                padding: 16px 20px;
-                background: linear-gradient(135deg, rgba(248, 249, 255, 0.8) 0%, rgba(240, 242, 255, 0.6) 100%);
-                border-radius: 12px;
-                border: 1px solid rgba(114, 46, 209, 0.15);
-                box-shadow: 0 2px 8px rgba(114, 46, 209, 0.08);
+                padding: 16px 0;
+                padding-top: 0px;
                 position: relative;
-                overflow: hidden;
-                transition: all 0.3s ease;
-
+                letter-spacing: 1px;
+                
                 &::before {
                   content: '';
                   position: absolute;
-                  top: 0;
+                  top: 35%;
                   left: 0;
-                  width: 4px;
-                  height: 100%;
-                  background: linear-gradient(135deg, #722ed1 0%, #9254de 100%);
-                }
-
-                &::after {
-                  content: '';
-                  position: absolute;
-                  top: 0;
                   right: 0;
-                  width: 4px;
-                  height: 100%;
-                  background: linear-gradient(135deg, #9254de 0%, #b37feb 100%);
+                  height: 1px;
+                  background: linear-gradient(90deg, transparent 0%, #e8e8e8 20%, #e8e8e8 80%, transparent 100%);
+                  z-index: 1;
                 }
-
-                &:hover {
-                  transform: translateY(-1px);
-                  box-shadow: 0 4px 16px rgba(114, 46, 209, 0.15);
-                  border-color: rgba(114, 46, 209, 0.25);
+                
+                span {
+                  background: rgba(255, 255, 255, 0.9);
+                  padding: 0 20px;
+                  position: relative;
+                  z-index: 2;
                 }
               }
 
               .image-prompt-section {
                 flex: 1;
                 overflow-y: auto;
-                max-height: 600px;
+                min-height: 300px;
 
                 .prompt-section {
                   margin-bottom: 16px;
                   padding: 12px;
                   background: rgba(255, 255, 255, 0.6);
                   border-radius: 8px;
-                  border: 1px solid rgba(114, 46, 209, 0.1);
 
                   .section-title {
                     font-size: 14px;
@@ -938,8 +1041,8 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                height: 100%;
-                min-height: 200px;
+                flex: 1;
+                min-height: 300px;
                 background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
                 border-radius: 8px;
                 border: 2px dashed rgba(114, 46, 209, 0.3);
@@ -1033,7 +1136,7 @@
             &.action-text {
               white-space: pre-wrap;
               background: rgba(114, 46, 209, 0.05);
-              padding: 12px;
+              // padding: 12px;
               border-radius: 8px;
               border: 1px solid rgba(114, 46, 209, 0.1);
             }
