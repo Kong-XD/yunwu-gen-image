@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Upload, Button, Input, Space, message, Image } from 'antd';
+import { Card, Upload, Button, Input, Space, message, Image, Select } from 'antd';
 import {
   CloudUploadOutlined,
   DeleteOutlined,
@@ -7,7 +7,8 @@ import {
   PlayCircleOutlined,
   UploadOutlined,
   KeyOutlined,
-  BulbOutlined
+  BulbOutlined,
+  SettingOutlined
 } from '@ant-design/icons';
 // @ts-ignore
 import Papa from 'papaparse';
@@ -25,6 +26,14 @@ const Dashboard: React.FC = () => {
     // 从localStorage加载API密钥
     return localStorage.getItem('apiKey') || '';
   });
+  const [apiPlatform, setApiPlatform] = useState<string>(() => {
+    // 从localStorage加载API平台
+    return localStorage.getItem('apiPlatform') || '云雾';
+  });
+  const [model, setModel] = useState<string>(() => {
+    // 从localStorage加载模型
+    return localStorage.getItem('model') || 'Sora';
+  });
   const [customStyle, setCustomStyle] = useState<string>(() => {
     // 从localStorage加载自定义风格
     return localStorage.getItem('customStyle') || '';
@@ -36,6 +45,20 @@ const Dashboard: React.FC = () => {
     setApiKey(newApiKey);
     // 保存到localStorage
     localStorage.setItem('apiKey', newApiKey);
+  };
+
+  // 处理API平台变化
+  const handleApiPlatformChange = (value: string) => {
+    setApiPlatform(value);
+    // 保存到localStorage
+    localStorage.setItem('apiPlatform', value);
+  };
+
+  // 处理模型变化
+  const handleModelChange = (value: string) => {
+    setModel(value);
+    // 保存到localStorage
+    localStorage.setItem('model', value);
   };
 
   // 处理自定义风格变化
@@ -318,31 +341,62 @@ const Dashboard: React.FC = () => {
       <div className="page-layout">
         {/* 左侧列 */}
         <div className="left-column">
-          {/* API密钥配置 */}
+          {/* 基本信息配置 */}
           <Card 
             title={
               <span>
-                <KeyOutlined style={{ marginRight: 8, color: '#722ed1' }} />
-                API密钥配置
+                <SettingOutlined style={{ marginRight: 8, color: '#722ed1' }} />
+                基本配置
               </span>
             }
             extra={
-              apiKey.trim() ? (
+              (apiKey.trim() || apiPlatform || model) ? (
                 <span className="auto-save-hint">✅ 已自动保存</span>
               ) : null
             }
-            className="api-key-card"
+            className="basic-config-card"
           >
-            <Input
-              value={apiKey}
-              onChange={handleApiKeyChange}
-              placeholder="请输入API密钥..."
-              className="api-key-input"
-              autoComplete="off"
-              autoCorrect="off"
-              autoCapitalize="off"
-              spellCheck="false"
-            />
+            <div className="config-form">
+              <div className="config-item">
+                <label className="config-label">API 密钥</label>
+                <Input
+                  value={apiKey}
+                  onChange={handleApiKeyChange}
+                  placeholder="请输入API密钥..."
+                  className="config-input"
+                  autoComplete="off"
+                  autoCorrect="off"
+                  autoCapitalize="off"
+                  spellCheck="false"
+                />
+              </div>
+              
+              <div className="config-item">
+                <label className="config-label">API 平台</label>
+                <Select
+                  value={apiPlatform}
+                  onChange={handleApiPlatformChange}
+                  className="config-select"
+                  options={[
+                    { value: '云雾', label: '云雾' }
+                  ]}
+                />
+              </div>
+              
+              <div className="config-item">
+                <label className="config-label">模型</label>
+                <Select
+                  value={model}
+                  onChange={handleModelChange}
+                  className="config-select"
+                  options={[
+                    { value: 'Sora', label: 'Sora' },
+                    { value: 'Nano Banana', label: 'Nano Banana' },
+                    { value: '即梦4.0', label: '即梦4.0' }
+                  ]}
+                />
+              </div>
+            </div>
           </Card>
 
           {/* 自定义风格配置 */}
@@ -524,7 +578,7 @@ const Dashboard: React.FC = () => {
                            <div className="scene-right-panel">
                              <div className="panel-content">
                                <div className="panel-title">
-                                 <span>Generated Image</span>
+                                 <span>生成的图片</span>
                                </div>
                                <div className="image-placeholder">
                                  <div className="image-number">{index + 1}</div>
