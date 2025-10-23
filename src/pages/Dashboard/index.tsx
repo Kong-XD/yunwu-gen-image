@@ -206,7 +206,25 @@ const Dashboard: React.FC = () => {
   };
 
   // 调用API生成图片
-  const callGenerateAPI = async (prompt: string, base64Image: string) => {
+  const callGenerateAPI = async (prompt: string, base64Images: string[]) => {
+    // 构建用户内容数组
+    const userContent: any[] = [
+      {
+        type: "text",
+        text: prompt
+      }
+    ];
+
+    // 为每张图片添加image_url
+    base64Images.forEach((base64Image) => {
+      userContent.push({
+        type: "image_url",
+        image_url: {
+          url: `data:image/jpeg;base64,${base64Image}`
+        }
+      });
+    });
+
     const requestBody = {
       model: "sora_image",
       messages: [
@@ -216,18 +234,7 @@ const Dashboard: React.FC = () => {
         },
         {
           role: "user",
-          content: [
-            {
-              type: "text",
-              text: prompt
-            },
-            {
-              type: "image_url",
-              image_url: {
-                url: `data:image/jpeg;base64,${base64Image}`
-              }
-            }
-          ]
+          content: userContent
         }
       ]
     };
@@ -255,13 +262,13 @@ const Dashboard: React.FC = () => {
   };
 
   // 带重试的API调用函数
-  const callGenerateAPIWithRetry = async (prompt: string, base64Image: string, maxRetries: number = 3) => {
+  const callGenerateAPIWithRetry = async (prompt: string, base64Images: string[], maxRetries: number = 3) => {
     let lastError: any;
     
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       try {
         console.log(`API调用尝试 ${attempt}/${maxRetries}`);
-        const result = await callGenerateAPI(prompt, base64Image);
+        const result = await callGenerateAPI(prompt, base64Images);
         return result;
       } catch (error) {
         lastError = error;
@@ -279,8 +286,27 @@ const Dashboard: React.FC = () => {
     throw lastError;
   };
 
+  // 根据prompt过滤需要的图片
+  const filterImagesByPrompt = (promptText: string, fileList: any[], base64Images: string[]) => {
+    const filteredImages: string[] = [];
+    console.log('fileList', fileList);
+    console.log('base64Images', base64Images);
+    console.log('promptText', promptText);
+    fileList.forEach((file, index) => {
+      const fileName = file.name.split('.')[0];
+      // 检查prompt中是否包含图片名称（不区分大小写）
+      if (promptText.toLowerCase().includes(fileName.toLowerCase())) {
+        filteredImages.push(base64Images[index]);
+        console.log(`找到匹配的图片: ${fileName}`);
+      }
+    });
+    
+    console.log(`从 ${fileList.length} 张图片中过滤出 ${filteredImages.length} 张相关图片`);
+    return filteredImages;
+  };
+
   // 处理单个场景生成
-  const generateSingleScene = async (sceneIndex: number, scene: any, base64Image: string) => {
+  const generateSingleScene = async (sceneIndex: number, scene: any, fileList: any[], base64Images: string[]) => {
     const parsedPrompt = parseScenePrompt(scene);
     
     // 构建提示词
@@ -297,6 +323,11 @@ const Dashboard: React.FC = () => {
       promptText += `\n\n风格要求：${customStyle}`;
     }
 
+    // 根据prompt过滤需要的图片
+    const filteredImages = filterImagesByPrompt(promptText, fileList, base64Images);
+    console.log('filteredImages', filteredImages);
+    debugger;
+
     try {
       // 更新进度状态
       setGenerationProgress(prev => ({
@@ -304,8 +335,8 @@ const Dashboard: React.FC = () => {
         [sceneIndex]: '生成中...'
       }));
       
-      console.log(`开始生成场景${sceneIndex + 1}的图片...`);
-      const result = await callGenerateAPIWithRetry(promptText, base64Image);
+      console.log(`开始生成场景${sceneIndex + 1}的图片，使用${filteredImages.length}张相关图片...`);
+      const result = await callGenerateAPIWithRetry(promptText, filteredImages);
       
       // 更新进度状态为成功
       setGenerationProgress(prev => ({
@@ -363,16 +394,19 @@ const Dashboard: React.FC = () => {
     setGeneratedImages(new Array(validShots.length).fill(null));
 
     try {
-      // 获取第一张图片作为参考图
-      const referenceImage = fileList[0];
-      const base64Image = await convertImageToBase64(referenceImage);
+      // 将所有上传的图片转换为base64
+      console.log(`开始转换 ${fileList.length} 张图片为base64...`);
+      const base64Images = await Promise.all(
+        fileList.map(file => convertImageToBase64(file))
+      );
+      console.log(`成功转换 ${base64Images.length} 张图片`);
 
       console.log(`开始并发生成 ${validShots.length} 个场景的图片...`);
 
       // 创建所有场景的生成任务，每个任务完成后立即更新UI
       const generateTasks = validShots.map(async (scene, index) => {
         try {
-          const result = await generateSingleScene(index, scene, base64Image);
+          const result = await generateSingleScene(index, scene, fileList, base64Images);
           
           // 立即更新生成的图片状态
           setGeneratedImages(prev => {
