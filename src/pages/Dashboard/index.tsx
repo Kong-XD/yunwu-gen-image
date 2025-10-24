@@ -6,10 +6,8 @@ import {
   GlobalOutlined,
   PlayCircleOutlined,
   UploadOutlined,
-  KeyOutlined,
   BulbOutlined,
   SettingOutlined,
-  PlusOutlined
 } from '@ant-design/icons';
 // @ts-ignore
 import Papa from 'papaparse';
@@ -36,6 +34,7 @@ const Dashboard: React.FC = () => {
     return localStorage.getItem('model') || 'Sora';
   });
   const [customStyle, setCustomStyle] = useState<string>('');
+  const [modelPrompt, setModelPrompt] = useState<string>('你是一个AI图像生成助手，根据用户的文字描述和参考图片生成一张高质量的图片。\n\n关键要求：你必须严格按照指定的宽高比生成图片。用户选择的宽高比是 Portrait（2:3）。\n\n这是强制性要求，必须严格遵守。不得生成其他宽高比的图片。\n\n宽高比是最重要的约束条件，必须严格执行。');
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedImages, setGeneratedImages] = useState<any[]>([]);
   const [generationProgress, setGenerationProgress] = useState<{[key: number]: string}>({});
@@ -60,6 +59,12 @@ const Dashboard: React.FC = () => {
     setModel(value);
     // 保存到localStorage
     localStorage.setItem('model', value);
+  };
+
+  // 处理模型基础Prompt变化
+  const handleModelPromptChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newModelPrompt = e.target.value;
+    setModelPrompt(newModelPrompt);
   };
 
   // 处理自定义风格变化
@@ -200,13 +205,37 @@ const Dashboard: React.FC = () => {
     });
   };
 
+  // 下载图片到本地
+  const downloadImage = async (imageUrl: string, filename: string) => {
+    try {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('下载图片失败:', error);
+    }
+  };
+
   // 调用API生成图片
   const callGenerateAPI = async (prompt: string, base64Images: string[]) => {
+    // 构建带风格信息的提示词
+    let finalPrompt = prompt;
+    if (customStyle.trim()) {
+      finalPrompt += `\n## Style:\n${customStyle}\n图片比例【竖屏9:16】`;
+    }
+    
     // 构建用户内容数组
     const userContent: any[] = [
       {
         type: "text",
-        text: prompt
+        text: finalPrompt
       }
     ];
 
@@ -225,7 +254,7 @@ const Dashboard: React.FC = () => {
       messages: [
         {
           role: "system",
-          content: "你是一个AI图像生成助手，根据用户的文字描述和参考图片生成一张高质量的图片。\n\n关键要求：你必须严格按照指定的宽高比生成图片。用户选择的宽高比是 Portrait（2:3）。\n\n这是强制性要求，必须严格遵守。不得生成其他宽高比的图片。\n\n宽高比是最重要的约束条件，必须严格执行。"
+          content: modelPrompt
         },
         {
           role: "user",
@@ -313,10 +342,6 @@ const Dashboard: React.FC = () => {
       promptText = scene['分镜提示词'] || scene['提示词'] || scene['内容'] || scene['描述'] || '';
     }
 
-    // 添加自定义风格
-    if (customStyle.trim()) {
-      promptText += `\n\n风格要求：${customStyle}`;
-    }
 
     // 根据prompt过滤需要的图片
     const filteredImages = filterImagesByPrompt(promptText, fileList, base64Images);
@@ -407,6 +432,17 @@ const Dashboard: React.FC = () => {
       
       if (result.success) {
         message.success(`场景${sceneIndex + 1}生成成功`);
+        
+        // 自动下载生成的图片
+        const content = result.result?.choices?.[0]?.message?.content || '';
+        const imageUrlMatch = content.match(/!\[image\]\((https?:\/\/[^)]+)\)/);
+        const imageUrl = imageUrlMatch ? imageUrlMatch[1] : '';
+        
+        if (imageUrl) {
+          const filename = `场景${sceneIndex + 1}_${new Date().getTime()}.jpg`;
+          await downloadImage(imageUrl, filename);
+          message.success(`图片已自动下载: ${filename}`);
+        }
       } else {
         message.error(`场景${sceneIndex + 1}生成失败: ${result.error instanceof Error ? result.error.message : '未知错误'}`);
       }
@@ -486,6 +522,17 @@ const Dashboard: React.FC = () => {
           
           if (result.success) {
             message.success(`场景${index + 1}生成成功`);
+            
+            // 自动下载生成的图片
+            const content = result.result?.choices?.[0]?.message?.content || '';
+            const imageUrlMatch = content.match(/!\[image\]\((https?:\/\/[^)]+)\)/);
+            const imageUrl = imageUrlMatch ? imageUrlMatch[1] : '';
+            
+            if (imageUrl) {
+              const filename = `场景${index + 1}_${new Date().getTime()}.jpg`;
+              await downloadImage(imageUrl, filename);
+              message.success(`图片已自动下载: ${filename}`);
+            }
           } else {
             message.error(`场景${index + 1}生成失败: ${result.error instanceof Error ? result.error.message : '未知错误'}`);
           }
@@ -735,6 +782,18 @@ const Dashboard: React.FC = () => {
                     { value: 'Nano Banana', label: 'Nano Banana' },
                     { value: '即梦4.0', label: '即梦4.0' }
                   ]}
+                />
+              </div>
+              
+              <div className="config-item">
+                <label className="config-label">基础Prompt</label>
+                <TextArea
+                  style={{ height: 160 }}
+                  value={modelPrompt}
+                  onChange={handleModelPromptChange}
+                  placeholder="请输入模型基础Prompt..."
+                  rows={4}
+                  className="config-textarea"
                 />
               </div>
             </div>
