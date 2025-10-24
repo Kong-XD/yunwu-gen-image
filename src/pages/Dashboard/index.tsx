@@ -35,10 +35,7 @@ const Dashboard: React.FC = () => {
     // 从localStorage加载模型
     return localStorage.getItem('model') || 'Sora';
   });
-  const [customStyle, setCustomStyle] = useState<string>(() => {
-    // 从localStorage加载自定义风格
-    return localStorage.getItem('customStyle') || '';
-  });
+  const [customStyle, setCustomStyle] = useState<string>('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedImages, setGeneratedImages] = useState<any[]>([]);
   const [generationProgress, setGenerationProgress] = useState<{[key: number]: string}>({});
@@ -69,8 +66,6 @@ const Dashboard: React.FC = () => {
   const handleCustomStyleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newCustomStyle = e.target.value;
     setCustomStyle(newCustomStyle);
-    // 保存到localStorage
-    localStorage.setItem('customStyle', newCustomStyle);
   };
 
   // 解析场景的提示词内容
@@ -326,7 +321,6 @@ const Dashboard: React.FC = () => {
     // 根据prompt过滤需要的图片
     const filteredImages = filterImagesByPrompt(promptText, fileList, base64Images);
     console.log('filteredImages', filteredImages);
-    debugger;
 
     try {
       // 更新进度状态
@@ -367,6 +361,81 @@ const Dashboard: React.FC = () => {
         success: false,
         error: error
       };
+    }
+  };
+
+  // 处理单个场景生成
+  const handleGenerateSingle = async (sceneIndex: number) => {
+    // 验证必要参数
+    if (!apiKey.trim()) {
+      message.error('请先设置API密钥');
+      return;
+    }
+
+    if (fileList.length === 0) {
+      message.error('请先上传参考图片');
+      return;
+    }
+
+    const scene = validShots[sceneIndex];
+    if (!scene) {
+      message.error('场景数据不存在');
+      return;
+    }
+
+    try {
+      // 更新进度状态
+      setGenerationProgress(prev => ({
+        ...prev,
+        [sceneIndex]: '生成中...'
+      }));
+
+      // 将所有上传的图片转换为base64
+      const base64Images = await Promise.all(
+        fileList.map(file => convertImageToBase64(file))
+      );
+
+      // 生成单个场景
+      const result = await generateSingleScene(sceneIndex, scene, fileList, base64Images);
+      
+      // 更新生成的图片状态
+      setGeneratedImages(prev => {
+        const newResults = [...prev];
+        newResults[sceneIndex] = result;
+        return newResults;
+      });
+      
+      if (result.success) {
+        message.success(`场景${sceneIndex + 1}生成成功`);
+      } else {
+        message.error(`场景${sceneIndex + 1}生成失败: ${result.error instanceof Error ? result.error.message : '未知错误'}`);
+      }
+      
+    } catch (error) {
+      console.error(`场景${sceneIndex + 1}生成失败:`, error);
+      
+      // 更新进度状态为失败
+      setGenerationProgress(prev => ({
+        ...prev,
+        [sceneIndex]: '生成失败'
+      }));
+      
+      const errorResult = {
+        sceneIndex,
+        sceneData: scene,
+        result: null,
+        success: false,
+        error: error
+      };
+      
+      // 更新错误状态
+      setGeneratedImages(prev => {
+        const newResults = [...prev];
+        newResults[sceneIndex] = errorResult;
+        return newResults;
+      });
+      
+      message.error(`场景${sceneIndex + 1}生成失败: ${error instanceof Error ? error.message : '未知错误'}`);
     }
   };
 
@@ -679,11 +748,7 @@ const Dashboard: React.FC = () => {
                 自定义风格
               </span>
             }
-            extra={
-              customStyle.trim() ? (
-                <span className="auto-save-hint">✅ 已自动保存</span>
-              ) : null
-            }
+            extra={null}
             className="custom-style-card"
           >
             <TextArea
@@ -803,7 +868,14 @@ const Dashboard: React.FC = () => {
                             ) : (
                               <div className="action-buttons">
                                 <Button size="small" onClick={() => startEditing(index)}>编辑</Button>
-                                <Button type="primary" icon={<PlayCircleOutlined />} size="small">
+                                <Button 
+                                  type="primary" 
+                                  icon={<PlayCircleOutlined />} 
+                                  size="small"
+                                  onClick={() => handleGenerateSingle(index)}
+                                  loading={generationProgress[index] === '生成中...'}
+                                  disabled={!apiKey.trim() || fileList.length === 0}
+                                >
                                   单个生成
                                 </Button>
                               </div>
